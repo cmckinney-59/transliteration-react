@@ -10,7 +10,7 @@ function Header() {
   return (  
     <header className="App-header">
       <h1>The Baybayin Project</h1>
-      <h2>What is {alphabet}</h2>
+      <h2>{alphabet}</h2>
       <p>{alphabet} Transliterator</p>
       <img src={logo} className="App-logo" alt="logo" />
       <p>
@@ -28,12 +28,40 @@ function Header() {
   )
 }
 
+function DescriptionSection(props) {
+  const alphabet = transliterationAlphabets[currentAlphabet];
+
+  return (
+    <li>
+      <img src={props.image} alt="..." />
+      <h3>TITLE</h3>
+      <p>DESCRIPTION</p>
+      <p>WHAT IS {alphabet}?</p>
+      <p>{alphabet} TRANSLITERATOR</p>
+    </li>
+  )
+}
+
+function DescriptionSection1(props) {
+  const alphabet = transliterationAlphabets[currentAlphabet];
+
+  return (
+    <li>
+      <img src={props.image} alt="..." />
+      <h3>TITLE</h3>
+      <p>DESCRIPTION</p>
+      <p>WHAT IS {alphabet}?</p>
+      <p>{alphabet} TRANSLITERATOR</p>
+    </li>
+  )
+}
+
 function App() {
   return (
     <div className="App">
-      <Header/>
       <main>
-        <h2> What is Baybayin? </h2>
+        <Header/>
+        <DescriptionSection/>
       </main>
     </div>
   );
