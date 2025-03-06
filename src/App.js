@@ -2,13 +2,10 @@ import logo from './assets/logo.png';
 import './App.css';
 
 const transliterationAlphabets = ['Baybayin', 'Aurebesh', 'Deseret']
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
+let currentAlphabet = 1;
 
 function Header() {
-  const alphabet = transliterationAlphabets[getRandomInt(2)]
+  const alphabet = transliterationAlphabets[currentAlphabet];
 
   return (  
     <header className="App-header">
