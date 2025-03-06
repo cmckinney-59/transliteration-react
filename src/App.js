@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './logo.png';
 import './App.css';
 
 const transliterationAlphabets = ['Baybayin', 'Aurebesh', 'Deseret']
