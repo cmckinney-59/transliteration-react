@@ -2,7 +2,7 @@ import logo from './assets/logo.png';
 import './App.css';
 
 const transliterationAlphabets = ['Baybayin', 'Aurebesh', 'Deseret']
-let currentAlphabet = 1;
+let currentAlphabet = 0;
 
 function Header() {
   const alphabet = transliterationAlphabets[currentAlphabet];
