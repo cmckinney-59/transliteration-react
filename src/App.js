@@ -1,4 +1,4 @@
-import logo from './logo.png';
+import logo from './assets/logo.png';
 import './App.css';
 
 const transliterationAlphabets = ['Baybayin', 'Aurebesh', 'Deseret']
@@ -10,7 +10,7 @@ function getRandomInt(max) {
 function Header() {
   const alphabet = transliterationAlphabets[getRandomInt(2)]
 
-  return (
+  return (  
     <header className="App-header">
       <h1>The Baybayin Project</h1>
       <h2>What is {alphabet}</h2>
