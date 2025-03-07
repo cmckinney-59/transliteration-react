@@ -3,10 +3,9 @@ import './App.css';
 
 const transliterationAlphabets = ['Baybayin', 'Aurebesh', 'Deseret']
 let currentAlphabet = 0;
+const alphabet = transliterationAlphabets[currentAlphabet];
 
 function Header() {
-  const alphabet = transliterationAlphabets[currentAlphabet];
-
   return (  
     <header className="App-header">
       <h1>The Baybayin Project</h1>
@@ -28,31 +27,15 @@ function Header() {
   )
 }
 
-function DescriptionSection(props) {
-  const alphabet = transliterationAlphabets[currentAlphabet];
-
+function Description() {
   return (
-    <li>
-      <img src={props.image} alt="..." />
-      <h3>TITLE</h3>
-      <p>DESCRIPTION</p>
-      <p>WHAT IS {alphabet}?</p>
-      <p>{alphabet} TRANSLITERATOR</p>
-    </li>
+    <h2>What is {alphabet}?</h2>
   )
 }
 
-function DescriptionSection1(props) {
-  const alphabet = transliterationAlphabets[currentAlphabet];
-
+function Transliterator() {
   return (
-    <li>
-      <img src={props.image} alt="..." />
-      <h3>TITLE</h3>
-      <p>DESCRIPTION</p>
-      <p>WHAT IS {alphabet}?</p>
-      <p>{alphabet} TRANSLITERATOR</p>
-    </li>
+    <h2>{alphabet} Transliterator</h2>
   )
 }
 
@@ -61,7 +44,8 @@ function App() {
     <div className="App">
       <main>
         <Header/>
-        <DescriptionSection/>
+        <Description/>
+        <Transliterator/>
       </main>
     </div>
   );
