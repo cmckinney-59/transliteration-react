@@ -1,5 +1,7 @@
 import logo from './assets/logo.png';
+import componentsImg from './assets/logo.png';
 import './App.css';
+import { CORE_CONCEPTS } from './data.js';
 
 const transliterationAlphabets = ['Baybayin', 'Aurebesh', 'Deseret']
 let currentAlphabet = 0;
@@ -10,9 +12,8 @@ function Header() {
     <header className="App-header">
       <h1>The Baybayin Project</h1>
       <h2>{alphabet}</h2>
-      <p>{alphabet} Transliterator</p>
       <img src={logo} className="App-logo" alt="logo" />
-      <p>
+      {/* <p>
         Edit <code>src/App.js</code> and save to reload.
       </p>
       <a
@@ -22,7 +23,7 @@ function Header() {
         rel="noopener noreferrer"
       >
         Learn React
-      </a>
+      </a> */}
     </header>
   )
 }
@@ -45,13 +46,36 @@ function Transliterator() {
   )
 }
 
+function CoreConcept(image, title, description) {
+  return(
+    <li>
+      <img src={image} alt={title}/>
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </li>
+  )
+}
+
 function App() {
   return (
     <div className="App">
+      <Header/>
       <main>
-        <Header/>
         <Description/>
         <Transliterator/>
+        <section id="core-concepts">
+          <h2>Core Concepts</h2>
+          <ul>
+          <CoreConcept 
+              title={CORE_CONCEPTS[0].title}
+              description={CORE_CONCEPTS[0].description}
+              image={CORE_CONCEPTS[0].image}
+          />
+          <CoreConcept {...CORE_CONCEPTS[1]}/>
+          <CoreConcept {...CORE_CONCEPTS[2]}/>
+          <CoreConcept {...CORE_CONCEPTS[3]}/>
+          </ul>
+        </section>
       </main>
     </div>
   );
