@@ -29,13 +29,19 @@ function Header() {
 
 function Description() {
   return (
-    <h2>What is {alphabet}?</h2>
+    <div>
+      <h2>What is {alphabet}?</h2>
+      <p>This is the {alphabet} description</p>
+    </div>
   )
 }
 
 function Transliterator() {
   return (
-    <h2>{alphabet} Transliterator</h2>
+    <div>
+      <h2>{alphabet} Transliterator</h2>
+      <p>This is the {alphabet} Transliterator</p>
+    </div>
   )
 }
 
