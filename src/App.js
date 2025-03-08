@@ -46,7 +46,7 @@ function Transliterator() {
   )
 }
 
-function CoreConcept(image, title, description) {
+function CoreConcept({image, title, description}) {
   return(
     <li>
       <img src={image} alt={title}/>
