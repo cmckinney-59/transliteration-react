@@ -42,6 +42,10 @@ function Transliterator() {
     <div>
       <h2>{alphabet} Transliterator</h2>
       <p>This is the {alphabet} Transliterator</p>
+      <textarea
+        class="transliteration-input"
+        id="userInput"
+      ></textarea>
     </div>
   )
 }
