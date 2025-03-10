@@ -1,9 +1,9 @@
 import './App.css';
 import { CORE_CONCEPTS } from './data.js';
-import Header from './components/Header.js'
-import Description from './components/Description.js'
-import Transliterator from './components/Transliterator.js'
-import CoreConcept from './components/CoreConcepts.js';
+import Header from './components/Header/Header.js'
+import Description from './components/Description/Description.js'
+import Transliterator from './components/Transliterator/Transliterator.js'
+import CoreConcept from './components/CoreConcepts/CoreConcepts.js';
 
 function App() {
   return (
