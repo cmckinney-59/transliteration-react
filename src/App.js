@@ -45,7 +45,7 @@ function Transliterator() {
       <textarea
         class="transliteration-input"
         id="userInput"
-      ></textarea>
+      >default text</textarea>
     </div>
   )
 }
