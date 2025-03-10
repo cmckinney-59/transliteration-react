@@ -1,3 +1,5 @@
+import './Transliterator.css'
+
 const transliterationAlphabets = ['Baybayin', 'Aurebesh', 'Deseret']
 let currentAlphabet = 0;
 const alphabet = transliterationAlphabets[currentAlphabet];

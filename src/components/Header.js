@@ -1,4 +1,5 @@
 import logo from '../assets/logo.png';
+import './Header.css';
 
 const transliterationAlphabets = ['Baybayin', 'Aurebesh', 'Deseret']
 let currentAlphabet = 0;
