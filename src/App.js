@@ -1,64 +1,9 @@
-import logo from './assets/logo.png';
-import componentsImg from './assets/logo.png';
 import './App.css';
 import { CORE_CONCEPTS } from './data.js';
-
-const transliterationAlphabets = ['Baybayin', 'Aurebesh', 'Deseret']
-let currentAlphabet = 0;
-const alphabet = transliterationAlphabets[currentAlphabet];
-
-function Header() {
-  return (  
-    <header className="App-header">
-      <h1>The Baybayin Project</h1>
-      <h2>{alphabet}</h2>
-      <img src={logo} className="App-logo" alt="logo" />
-      {/* <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a> */}
-    </header>
-  )
-}
-
-function Description() {
-  return (
-    <div>
-      <h2>What is {alphabet}?</h2>
-      <p>This is the {alphabet} description</p>
-    </div>
-  )
-}
-
-function Transliterator() {
-  return (
-    <div>
-      <h2>{alphabet} Transliterator</h2>
-      <p>This is the {alphabet} Transliterator</p>
-      <textarea
-        class="transliteration-input"
-        id="userInput"
-      >default text</textarea>
-    </div>
-  )
-}
-
-function CoreConcept({image, title, description}) {
-  return(
-    <li>
-      <img src={image} alt={title}/>
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </li>
-  )
-}
+import Header from './components/Header.js'
+import Description from './components/Description.js'
+import Transliterator from './components/Transliterator.js'
+import CoreConcept from './components/CoreConcepts.js';
 
 function App() {
   return (
