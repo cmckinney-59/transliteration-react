@@ -21,9 +21,9 @@ function App() {
     <div className="App">
       <Header/>
       <main>
-        <Description/>
+        {/* <Description/>
         <Transliterator/>
-        {/* <section id="core-concepts">
+        <section id="core-concepts">
           <h2>Core Concepts</h2>
           <ul>
           <CoreConcept 
