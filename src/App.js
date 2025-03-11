@@ -1,18 +1,20 @@
 import './App.css';
 import { CORE_CONCEPTS } from './data.js';
+import {PAGES} from './pages.js'
 import Header from './components/Header/Header.js'
 import Description from './components/Description/Description.js'
 import Transliterator from './components/Transliterator/Transliterator.js'
 import CoreConcept from './components/CoreConcepts/CoreConcepts.js';
+import PageContent from './components/PageContent/PageContent.js';
 import LeftTabButton from './components/LeftTabButton.js';
 import { useState } from 'react';
 
 function App() {
-  const [ selectedButton, setSelectedButton ] = useState('home')
+  const [ selectedPage, setSelectedPage ] = useState('home')
 
-  function handleClick(selectedButton) {
-    setSelectedButton (selectedButton);
-    console.log(selectedButton);
+  function handleClick(selectedPage) {
+    setSelectedPage (selectedPage);
+    console.log(selectedPage);
   }
 
   return (
@@ -21,7 +23,7 @@ function App() {
       <main>
         <Description/>
         <Transliterator/>
-        <section id="core-concepts">
+        {/* <section id="core-concepts">
           <h2>Core Concepts</h2>
           <ul>
           <CoreConcept 
@@ -33,9 +35,9 @@ function App() {
           <CoreConcept {...CORE_CONCEPTS[2]}/>
           <CoreConcept {...CORE_CONCEPTS[3]}/>
           </ul>
-        </section>
+        </section> */}
         <section class='examples'>
-          <h2>Examples</h2>
+          <h2>Pages</h2>
           <menu>
             <LeftTabButton onClick={() => handleClick('home')}>Home</LeftTabButton>
             <LeftTabButton onClick={() => handleClick('baybayin')}>Baybayin</LeftTabButton>
@@ -43,13 +45,7 @@ function App() {
             <LeftTabButton onClick={() => handleClick('deseret')}>Deseret</LeftTabButton>
           </menu>
           <div id='tab-content'>
-            <h3></h3>
-            <p></p>
-            <pre>
-              <code>
-                
-              </code>
-            </pre>
+            <PageContent {...PAGES[selectedPage]}/>
           </div>
         </section>
       </main>
