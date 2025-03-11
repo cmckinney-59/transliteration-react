@@ -36,9 +36,9 @@ function App() {
           <CoreConcept {...CORE_CONCEPTS[3]}/>
           </ul>
         </section> */}
-        <section class='examples'>
+        <section>
           <h2>Pages</h2>
-          <menu>
+          <menu className='sidebar'>
             <LeftTabButton onClick={() => handleClick('home')}>Home</LeftTabButton>
             <LeftTabButton onClick={() => handleClick('baybayin')}>Baybayin</LeftTabButton>
             <LeftTabButton onClick={() => handleClick('aurebesh')}>Aurebesh</LeftTabButton>
