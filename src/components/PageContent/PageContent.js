@@ -4,7 +4,6 @@ export default function PageContent({image, title, description, whatIs, translit
   return(
     <div>
       <img src={image} alt={title}/>
-      <h3>{title}</h3>
       <div>
         <h2>{whatIs}</h2>
         <p>{description}</p>
