@@ -6,7 +6,7 @@ import Header from './components/Header/Header.js'
 // import Transliterator from './components/Transliterator/Transliterator.js'
 // import CoreConcept from './components/CoreConcepts/CoreConcepts.js';
 import PageContent from './components/PageContent/PageContent.js';
-import LeftTabButton from './components/LeftTabButton.js';
+import LeftTabButton from './components/Buttons/LeftTabButton.js';
 import { useState } from 'react';
 
 function App() {
