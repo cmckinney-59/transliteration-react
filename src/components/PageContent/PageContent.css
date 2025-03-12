@@ -8,3 +8,15 @@
     min-height: 100px;
     background-color: #f9f9f9;
   }
+
+.transliteration-output {                     /* Houses styles for baybayin transliterated text output */
+    font-family: 'Baybayin', sans-serif; /* Sets the font within the Baybayin-output to Baybayin font with a fall back font of sans-serif */
+    font-size: 20px;                     /* Sets the font size of the baybayin-output to 20px */
+    border: 2px solid #000;            /* Creates the box around the output setting the thickness, the type of line, and the line color */
+    padding-left: 15px;                
+    width: 50%;        
+    box-sizing: border-box;
+    margin-top: 20px;
+    min-height: 100px;
+    background-color: #f9f9f9;
+}

@@ -12,9 +12,9 @@ export default function PageContent({image, title, description, whatIs, translit
         <h2>{transliterator}</h2>
         <textarea
           className="transliteration-textarea"
-          id="userInput"
           placeholder="Enter text to be transliterated here..."
         ></textarea>
+        <p className="transliteration-output">output</p>
       </div>
     </div>
   )
