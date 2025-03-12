@@ -26,3 +26,7 @@ img {
   top: 0;
   padding: 20px;
 }
+
+button.active {
+  background-color: rgb(84, 214, 84);
+}

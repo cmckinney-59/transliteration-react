@@ -1,7 +1,8 @@
-export default function transliterate({ onClick, isAvailable}) {
+export default function transliterateButton({ onClick, isActive }) {
+
     return (
         <button 
-            className={isAvailable ? 'active' : undefined} 
+            className={isActive ? 'active' : undefined} 
             onClick={onClick}>
             Transliterate
         </button>

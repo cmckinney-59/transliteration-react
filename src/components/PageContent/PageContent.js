@@ -1,7 +1,14 @@
 import './PageContent.css';
 import TransliterateButton from '../Buttons/TransliterateButton'
 
-export default function PageContent({image, title, description, whatIs, transliterator}) {
+export default function PageContent({
+  image,
+  title,
+  description,
+  whatIs,
+  transliterator,
+  isActive
+  }) {
   return(
     <div>
       <img src={image} alt={title}/>
@@ -16,7 +23,7 @@ export default function PageContent({image, title, description, whatIs, translit
           placeholder="Enter text to be transliterated here..."
         ></textarea>
         <div>
-          <TransliterateButton/>
+          <TransliterateButton isActive={isActive}/>
         </div>
         <p className="transliteration-output">output</p>
       </div>
