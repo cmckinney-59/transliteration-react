@@ -1,10 +1,10 @@
 import './App.css';
-import { CORE_CONCEPTS } from './data.js';
+// import { CORE_CONCEPTS } from './data.js';
 import {PAGES} from './pages.js'
 import Header from './components/Header/Header.js'
-import Description from './components/Description/Description.js'
-import Transliterator from './components/Transliterator/Transliterator.js'
-import CoreConcept from './components/CoreConcepts/CoreConcepts.js';
+// import Description from './components/Description/Description.js'
+// import Transliterator from './components/Transliterator/Transliterator.js'
+// import CoreConcept from './components/CoreConcepts/CoreConcepts.js';
 import PageContent from './components/PageContent/PageContent.js';
 import LeftTabButton from './components/LeftTabButton.js';
 import { useState } from 'react';
@@ -37,12 +37,12 @@ function App() {
           </ul>
         </section> */}
         <section>
-          <h2>Pages</h2>
+          <h1>{selectedPage}</h1>
           <menu className='sidebar'>
-            <LeftTabButton onClick={() => handleClick('home')}>Home</LeftTabButton>
-            <LeftTabButton onClick={() => handleClick('baybayin')}>Baybayin</LeftTabButton>
-            <LeftTabButton onClick={() => handleClick('aurebesh')}>Aurebesh</LeftTabButton>
-            <LeftTabButton onClick={() => handleClick('deseret')}>Deseret</LeftTabButton>
+            <LeftTabButton onClick={() => handleClick('Home')}>Home</LeftTabButton>
+            <LeftTabButton onClick={() => handleClick('Baybayin')}>Baybayin</LeftTabButton>
+            <LeftTabButton onClick={() => handleClick('Aurebesh')}>Aurebesh</LeftTabButton>
+            <LeftTabButton onClick={() => handleClick('Deseret')}>Deseret</LeftTabButton>
           </menu>
           <div id='tab-content'>
             <PageContent {...PAGES[selectedPage]}/>

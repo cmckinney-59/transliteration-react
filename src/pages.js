@@ -4,26 +4,26 @@ import theBoisImg from './assets/thebois.webp';
 import beeImg from './assets/deseretBee.jpg';
 
 export const PAGES = {
-    home: {
+    Home: {
         image: homeImg,
         title: 'Home',
         description: 'This is the Home description'
     },
-    baybayin: {
+    Baybayin: {
         image: inasalImg,
         title: 'Baybayin',
         whatIs: 'What is Baybayin?',
         description: 'This is the Baybayin description',
         transliterator: 'Baybayin transliterator'
     },
-    aurebesh: {
+    Aurebesh: {
         image: theBoisImg,
         title: 'Aurebesh',
         whatIs: 'What is Aurebesh?',
         description: 'This is the Aurebesh description',
         transliterator: 'Aurebesh transliterator'
     },
-    deseret: {
+    Deseret: {
         image: beeImg,
         title: 'Deseret',
         whatIs: 'What is Deseret?',
