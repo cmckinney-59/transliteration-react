@@ -1,9 +1,8 @@
-import Description from '../../components/Description/Description.js'
-import Transliterator from '../../components/Transliterator/Transliterator.js'
+import './PageContent.css';
 
 export default function PageContent({image, title, description, whatIs, transliterator}) {
   return(
-    <li>
+    <div>
       <img src={image} alt={title}/>
       <h3>{title}</h3>
       <div>
@@ -13,11 +12,11 @@ export default function PageContent({image, title, description, whatIs, translit
       <div>
         <h2>{transliterator}</h2>
         <textarea
-          class="transliteration-input"
+          className="transliteration-textarea"
           id="userInput"
           placeholder="Enter text to be transliterated here..."
         ></textarea>
       </div>
-    </li>
+    </div>
   )
 }
