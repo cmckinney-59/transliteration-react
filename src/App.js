@@ -10,11 +10,19 @@ import LeftTabButton from './components/LeftTabButton.js';
 import { useState } from 'react';
 
 function App() {
-  const [ selectedPage, setSelectedPage ] = useState('home')
+  const [ selectedPage, setSelectedPage ] = useState('')
 
   function handleClick(selectedPage) {
     setSelectedPage (selectedPage);
     console.log(selectedPage);
+  }
+
+  let pageContent = <p>no page selected</p>;
+
+  if (selectedPage) {
+    pageContent = (
+      <PageContent {...PAGES[selectedPage]}/>
+    )
   }
 
   return (
@@ -45,7 +53,7 @@ function App() {
             <LeftTabButton onClick={() => handleClick('Deseret')}>Deseret</LeftTabButton>
           </menu>
           <div id='tab-content'>
-            <PageContent {...PAGES[selectedPage]}/>
+            {pageContent}
           </div>
         </section>
       </main>
