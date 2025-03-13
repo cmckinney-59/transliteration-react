@@ -46,10 +46,10 @@ export default function PageContent({
 
   return (
     <div>
-      <img src={image} alt={title} />
       {showTransliterator}
       <div>
         <h2>{whatIs}</h2>
+        <img src={image} alt={title} />
         <p>{description}</p>
       </div>
     </div>
