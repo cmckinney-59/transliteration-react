@@ -11,7 +11,6 @@ import { useState } from 'react';
 
 function App() {
   const [ selectedPage, setSelectedPage ] = useState('')
-  const [ isActive, setIsActive ] = useState(true)
 
   function handleClick(selectedPage) {
     setSelectedPage (selectedPage);
@@ -22,7 +21,7 @@ function App() {
 
   if (selectedPage) {
     pageContent = (
-      <PageContent {...PAGES[selectedPage]} isActive={isActive}/>
+      <PageContent {...PAGES[selectedPage]}/>
     )
   }
 
