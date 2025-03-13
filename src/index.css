@@ -27,6 +27,16 @@ img {
   padding: 20px;
 }
 
+button {
+  background-color: lightgray;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
 button.active {
-  background-color: rgb(84, 214, 84);
+  background-color: rgb(151, 243, 151);
+  border-radius: 10px;
 }
