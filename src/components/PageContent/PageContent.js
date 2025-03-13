@@ -10,11 +10,16 @@ export default function PageContent({
   transliterator
 }) {
   const [text, setText] = useState("");
+  const [transliteratedText, setTransliteratedText] = useState("")
   const textareaHasText = text.length > 0;
   let showTransliterator = null;
   let isBaybayin = title === 'Baybayin';
   let isAurebesh = title === 'Aurebesh';
   let isDeseret = title === 'Deseret';
+
+  const handleTransliterate = () => {
+    setTransliteratedText(text);
+  }
 
   if (title !== 'Home') {
     showTransliterator = (
@@ -29,16 +34,19 @@ export default function PageContent({
           ></textarea>
           <p
             className={`transliteration-output ${
-              isBaybayin ? "baybayin-font" :
-              isAurebesh ? "aurebesh-font" :
-              isDeseret ? "deseret-font" :
-              ""}`}>
-              {text}
+              textareaHasText
+              ? (isBaybayin ? "baybayin-font" :
+                 isAurebesh ? "aurebesh-font" :
+                 isDeseret ? "deseret-font" :
+                "")
+              : ""
+              }`}>
+              {transliteratedText || "Transliterated text..."}
           </p>
         </div>
         <p>{text}</p>
         <div>
-          <TransliterateButton isActive={textareaHasText} />
+          <TransliterateButton isActive={textareaHasText} onClick={handleTransliterate} />
         </div>
       </div>
     );
