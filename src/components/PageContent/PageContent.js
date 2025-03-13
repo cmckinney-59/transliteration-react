@@ -1,4 +1,4 @@
-import { useState } from 'react'; // Import useState
+import { useState } from 'react';
 import './PageContent.css';
 import TransliterateButton from '../Buttons/TransliterateButton';
 
@@ -11,24 +11,31 @@ export default function PageContent({
 }) {
   const [text, setText] = useState("");
   const textareaHasText = text.length > 0;
-  let showTransliterator = '';
+  let showTransliterator = null;
+  let isBaybayin = title === 'Baybayin';
+  let isAurebesh = title === 'Aurebesh';
+  let isDeseret = title === 'Deseret';
 
   if (title !== 'Home') {
     showTransliterator = (
       <div>
-      <h2>{transliterator}</h2>
-      <textarea
-        className="transliteration-textarea"
-        placeholder="Enter text to be transliterated here..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      ></textarea>
-      <div>
-        <TransliterateButton isActive={textareaHasText} />
+        <h2>{transliterator}</h2>
+        <div className="transliteration-container">
+          <textarea
+            className="transliteration-textarea"
+            placeholder="Enter text to be transliterated here..."
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          ></textarea>
+            <p className="transliteration-output">
+              {text}
+            </p>
+        </div>
+        <div>
+          <TransliterateButton isActive={textareaHasText} />
+        </div>
       </div>
-      <p className="transliteration-output">output</p>
-    </div>
-    )
+    );
   }
 
   return (

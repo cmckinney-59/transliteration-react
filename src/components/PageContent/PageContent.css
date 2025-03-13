@@ -1,22 +1,42 @@
-.transliteration-textarea {
-    font-size: 20px;     
-    border: 2px solid #000;      
-    padding-left: 15px;      
-    width: 50%;
-    box-sizing: border-box;
-    margin-top: 20px;
-    min-height: 100px;
-    background-color: #f9f9f9;
-  }
+@font-face {
+  font-family: 'Baybayin';
+  src: url('../../assets/fonts/baybayin/TagDoc93.ttf') format('truetype');
+}
 
-.transliteration-output {                     /* Houses styles for baybayin transliterated text output */
-    font-family: 'Baybayin', sans-serif; /* Sets the font within the Baybayin-output to Baybayin font with a fall back font of sans-serif */
-    font-size: 20px;                     /* Sets the font size of the baybayin-output to 20px */
-    border: 2px solid #000;            /* Creates the box around the output setting the thickness, the type of line, and the line color */
-    padding-left: 15px;                
-    width: 50%;        
-    box-sizing: border-box;
-    margin-top: 20px;
-    min-height: 100px;
-    background-color: #f9f9f9;
+@font-face {
+  font-family: 'Deseret';
+  src: url('../../assets/fonts/deseret/deseret_.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Aurebesh';
+  src: url('../../assets/fonts/aurebesh/AurebeshBold-Rw1l.ttf') format('truetype');
+}
+
+.transliteration-output {
+  font-family: 'CustomFont', sans-serif;
+}
+
+.transliteration-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.transliteration-textarea, 
+.transliteration-output {
+  font-size: 20px;     
+  border: 2px solid #000;      
+  padding-left: 15px;      
+  width: 50%;
+  box-sizing: border-box;
+  min-height: 100px;
+  background-color: #f9f9f9;
+}
+
+.transliteration-output:empty::before {
+  content: "Transliterated text...";
+  color: gray;
 }

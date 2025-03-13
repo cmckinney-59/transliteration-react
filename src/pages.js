@@ -1,7 +1,7 @@
-import homeImg from './assets/home.jpg';
-import inasalImg from './assets/inasal.png';
-import theBoisImg from './assets/thebois.webp';
-import beeImg from './assets/deseretBee.jpg';
+import homeImg from './assets/images/home.jpg';
+import inasalImg from './assets/images/inasal.png';
+import theBoisImg from './assets/images/thebois.webp';
+import beeImg from './assets/images/deseretBee.jpg';
 
 export const PAGES = {
     Home: {
