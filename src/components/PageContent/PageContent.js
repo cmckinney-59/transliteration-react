@@ -18,7 +18,7 @@ export default function PageContent({
   let isDeseret = title === 'Deseret';
 
   const handleTransliterate = () => {
-    setTransliteratedText(text);
+    setTransliteratedText(text.toLowerCase());
   }
 
   if (title !== 'Home') {
