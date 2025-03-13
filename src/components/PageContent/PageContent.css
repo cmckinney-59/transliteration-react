@@ -26,16 +26,18 @@
 
 .transliteration-textarea, 
 .transliteration-output {
-  font-size: 20px;     
+  font-size: 20px;
   border: 1px solid grey;    
   width: 40%;
   box-sizing: border-box;
   min-height: 100px;
   background-color: #f9f9f9;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .transliteration-output:empty::before {
   content: "Transliterated text...";
+  font-family: 'Courier New', Courier, monospace;
   color: gray;
 }
 
