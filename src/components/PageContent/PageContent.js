@@ -27,10 +27,16 @@ export default function PageContent({
             value={text}
             onChange={(e) => setText(e.target.value)}
           ></textarea>
-            <p className="transliteration-output">
+          <p
+            className={`transliteration-output ${
+              isBaybayin ? "baybayin-font" :
+              isAurebesh ? "aurebesh-font" :
+              isDeseret ? "deseret-font" :
+              ""}`}>
               {text}
-            </p>
+          </p>
         </div>
+        <p>{text}</p>
         <div>
           <TransliterateButton isActive={textareaHasText} />
         </div>
