@@ -27,7 +27,7 @@
 .transliteration-textarea, 
 .transliteration-output {
   font-size: 20px;     
-  border: 2px solid #000;    
+  border: 1px solid grey;    
   width: 40%;
   box-sizing: border-box;
   min-height: 100px;
