@@ -1,0 +1,27 @@
+.App-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #336bdb;
+    flex-direction: row;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+  
+.header-content {
+    display: flex;
+    align-items: center; /* Align text and image vertically */
+    gap: 10px; /* Space between text and logo */
+}
+  
+.App-Header-Text {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0; /* Remove extra margin */
+}
+  
+.App-logo {
+    width: 50px; /* Adjust size as needed */
+    height: auto;
+}

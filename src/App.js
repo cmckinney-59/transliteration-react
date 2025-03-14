@@ -1,10 +1,8 @@
 import './App.css';
-// import { CORE_CONCEPTS } from './data.js';
 import {PAGES} from './pages.js'
 import Header from './components/Header/Header.js'
 // import Description from './components/Description/Description.js'
 // import Transliterator from './components/Transliterator/Transliterator.js'
-// import CoreConcept from './components/CoreConcepts/CoreConcepts.js';
 import PageContent from './components/PageContent/PageContent.js';
 import LeftTabButton from './components/Buttons/LeftTabButton.js';
 import { useState } from 'react';
@@ -14,7 +12,6 @@ function App() {
 
   function handleClick(selectedPage) {
     setSelectedPage (selectedPage);
-    console.log(selectedPage);
   }
 
   let pageContent = <p>no page selected</p>;
@@ -30,20 +27,7 @@ function App() {
       <Header/>
       <main>
         {/* <Description/>
-        <Transliterator/>
-        <section id="core-concepts">
-          <h2>Core Concepts</h2>
-          <ul>
-          <CoreConcept 
-            title={CORE_CONCEPTS[0].title}
-            description={CORE_CONCEPTS[0].description}
-            image={CORE_CONCEPTS[0].image}
-          />
-          <CoreConcept {...CORE_CONCEPTS[1]}/>
-          <CoreConcept {...CORE_CONCEPTS[2]}/>
-          <CoreConcept {...CORE_CONCEPTS[3]}/>
-          </ul>
-        </section> */}
+        <Transliterator/> */}
         <section>
           <h1>{selectedPage}</h1>
           <menu className='sidebar'>
