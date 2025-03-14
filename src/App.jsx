@@ -1,10 +1,10 @@
 import './App.css';
-import {PAGES} from './pages.js'
-import Header from './components/Header/Header.js'
-// import Description from './components/Description/Description.js'
-// import Transliterator from './components/Transliterator/Transliterator.js'
-import PageContent from './components/PageContent/PageContent.js';
-import LeftTabButton from './components/Buttons/LeftTabButton.js';
+import {PAGES} from './pages.jsx'
+import Header from './components/Header/Header.jsx'
+// import Description from './components/Description/Description.jsx'
+// import Transliterator from './components/Transliterator/Transliterator.jsx'
+import PageContent from './components/PageContent/PageContent.jsx';
+import LeftTabButton from './components/Buttons/LeftTabButton.jsx';
 import { useState } from 'react';
 
 function App() {
