@@ -18,7 +18,7 @@ export default function PageContent({
   let isDeseret = title === 'Deseret';
 
   const handleTransliterate = () => {
-    setTransliteratedText(text.toLowerCase());
+    setTransliteratedText(processBaybayinText(text));
   }
 
   if (title !== 'Home') {
@@ -44,7 +44,7 @@ export default function PageContent({
               {transliteratedText || "Transliterated text..."}
           </p>
         </div>
-        <p>{text}</p>
+        <p>{transliteratedText}</p>
         <div>
           <TransliterateButton isActive={textareaHasText} onClick={handleTransliterate} />
         </div>
@@ -62,4 +62,41 @@ export default function PageContent({
       </div>
     </div>
   );
+
+  function processBaybayinText(text) {
+    let processedText = toLowerCaseText(text);
+    processedText = replaceShWithSiy(processedText);
+    processedText = replacePhWithF(processedText);
+    processedText = replaceThWithT(processedText);
+    processedText = replaceXWithKs(processedText);
+    processedText = capitalizeSubsequentVowels(processedText);
+    return processedText;
+  }
+
+  function toLowerCaseText(text) {
+    return text.toLowerCase();
+  }
+
+  function replaceShWithSiy(text) {
+    return text.replace(/sh/g, 'siy');
+  }
+
+  function replacePhWithF(text) {
+    return text.replace(/ph/g, 'f');
+  }
+
+  function replaceThWithT(text) {
+    return text.replace(/th/g, 't');
+  }
+
+  function replaceXWithKs(text) {
+    return text.replace(/x/g, 'ks');
+  }
+
+  function capitalizeSubsequentVowels(text) {
+    const vowelRegex = /([aeiou])([aeiou]+)/gi;
+    return text.replace(vowelRegex, (firstVowel, subsequentVowels) => {
+      return firstVowel + subsequentVowels.toUpperCase();
+    });
+  }
 }
