@@ -18,7 +18,11 @@ export default function PageContent({
   let isDeseret = title === 'Deseret';
 
   const handleTransliterate = () => {
-    setTransliteratedText(processBaybayinText(text));
+    if ( isBaybayin ) {
+      setTransliteratedText(processBaybayinText(text));
+    } else {
+      setTransliteratedText(text);
+    }
   }
 
   if (title !== 'Home') {
@@ -90,7 +94,7 @@ export default function PageContent({
   }
 
   function replaceXWithKs(text) {
-    return text.replace(/x/g, 'ks');
+    return text.replace(/x/g, 'k+s');
   }
 
   function capitalizeSubsequentVowels(text) {
