@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import './App.css';
 import {PAGES} from './pages.jsx'
 import Header from './components/Header/Header.jsx'
@@ -5,7 +7,7 @@ import Header from './components/Header/Header.jsx'
 // import Transliterator from './components/Transliterator/Transliterator.jsx'
 import PageContent from './components/PageContent/PageContent.jsx';
 import LeftTabButton from './components/Buttons/LeftTabButton.jsx';
-import { useState } from 'react';
+import AlphabetSelector from './components/AlphabetSelector/AlphabetSelector.jsx';
 
 function App() {
   const [ selectedPage, setSelectedPage ] = useState('')
@@ -23,7 +25,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <>
       <Header/>
       <main>
         {/* <Description/>
@@ -36,12 +38,12 @@ function App() {
             <LeftTabButton onClick={() => handleClick('Aurebesh')}>Aurebesh</LeftTabButton>
             <LeftTabButton onClick={() => handleClick('Deseret')}>Deseret</LeftTabButton>
           </menu>
-          <div id='tab-content'>
+          <div id='page-content'>
             {pageContent}
           </div>
         </section>
       </main>
-    </div>
+    </>
   );
 }
 
