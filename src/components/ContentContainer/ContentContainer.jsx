@@ -21,7 +21,6 @@ export default function ContentContainer() {
           <option value="Aurebesh">Aurebesh</option>
           <option value="Deseret">Deseret</option>
         </select>
-        <p>Selected: {selectedPage || "None"}</p>
       </div>
       <div className='page-content'>
         <PageContent {...PAGES[selectedPage]}/>
