@@ -14,7 +14,7 @@ export default function ContentContainer() {
   return (
     <section>
       <div>
-        <label htmlFor="options">Choose an alphabet:</label>
+        <label htmlFor="options">Choose an alphabet: </label>
         <select id="options" value={selectedPage} onChange={handleClick}>
           <option value="">Select...</option>
           <option value="Baybayin">Baybayin</option>
