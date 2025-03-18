@@ -15,19 +15,20 @@ export default function PageContent({
 
   const textareaHasText = text.length > 0;
   let showTransliterator = null;
+  let showDialog = null;
   let isBaybayin = title === 'Baybayin';
   let isAurebesh = title === 'Aurebesh';
   let isDeseret = title === 'Deseret';
 
   const handleTransliterate = () => {
-    const words = text.split(/\s+/); // Split text by spaces
+    const words = text.split(/\s+/);
   
     for (let word of words) {
       const wordIncludesQuestion = /ch|qu|c|j/i.test(word);
       
       if (wordIncludesQuestion) {
         setIsDialogOpen(true);
-        return words;
+        return word;
       }
     }
   
@@ -39,8 +40,22 @@ export default function PageContent({
   };
 
   const handleCloseDialog = () => {
-    setIsDialogOpen(false); // Close the dialog
+    setIsDialogOpen(false);
   };
+
+  if (isDialogOpen) {
+    showDialog = (
+      <div className="dialog-overlay">
+        <div className="dialog-box">
+          <h3>Word Review</h3>
+          <p>Does the '' in {transliteratedText} sound like '' or ''?</p>
+          <button onClick={handleCloseDialog}>Repace</button>
+          <button onClick={handleCloseDialog}>Skip</button>
+          <button onClick={handleCloseDialog}>Close</button>
+        </div>
+      </div>
+    )
+  }
 
   if (title !== 'Home') {
     showTransliterator = (
@@ -69,18 +84,7 @@ export default function PageContent({
         <div>
           <TransliterateButton isActive={textareaHasText} onClick={handleTransliterate} />
         </div>
-
-          {isDialogOpen && (
-          <div className="dialog-overlay">
-            <div className="dialog-box">
-              <h3>Transliterated Text</h3>
-              <p>{transliteratedText}</p>
-              <button onClick={handleCloseDialog}>Repace</button>
-              <button onClick={handleCloseDialog}>Skip</button>
-              <button onClick={handleCloseDialog}>Close</button>
-            </div>
-          </div>
-        )}
+        {showDialog}
       </div>
     );
   }
