@@ -75,6 +75,8 @@ export default function PageContent({
             <div className="dialog-box">
               <h3>Transliterated Text</h3>
               <p>{transliteratedText}</p>
+              <button onClick={handleCloseDialog}>Repace</button>
+              <button onClick={handleCloseDialog}>Skip</button>
               <button onClick={handleCloseDialog}>Close</button>
             </div>
           </div>
