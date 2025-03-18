@@ -11,6 +11,8 @@ export default function PageContent({
 }) {
   const [text, setText] = useState("");
   const [transliteratedText, setTransliteratedText] = useState("")
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const textareaHasText = text.length > 0;
   let showTransliterator = null;
   let isBaybayin = title === 'Baybayin';
@@ -18,12 +20,27 @@ export default function PageContent({
   let isDeseret = title === 'Deseret';
 
   const handleTransliterate = () => {
-    if ( isBaybayin ) {
+    const words = text.split(/\s+/); // Split text by spaces
+  
+    for (let word of words) {
+      const wordIncludesQuestion = /ch|qu|c|j/i.test(word);
+      
+      if (wordIncludesQuestion) {
+        setIsDialogOpen(true);
+        return words;
+      }
+    }
+  
+    if (isBaybayin) {
       setTransliteratedText(processBaybayinText(text));
     } else {
       setTransliteratedText(text);
     }
-  }
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false); // Close the dialog
+  };
 
   if (title !== 'Home') {
     showTransliterator = (
@@ -52,6 +69,16 @@ export default function PageContent({
         <div>
           <TransliterateButton isActive={textareaHasText} onClick={handleTransliterate} />
         </div>
+
+          {isDialogOpen && (
+          <div className="dialog-overlay">
+            <div className="dialog-box">
+              <h3>Transliterated Text</h3>
+              <p>{transliteratedText}</p>
+              <button onClick={handleCloseDialog}>Close</button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
