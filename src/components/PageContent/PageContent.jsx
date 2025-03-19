@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './PageContent.css';
 import TransliterateButton from '../Buttons/TransliterateButton';
+import QuestionDialog from '../Dialog/QuestionDialog';
 
 export default function PageContent({
   image,
@@ -19,6 +20,10 @@ export default function PageContent({
   let isBaybayin = title === 'Baybayin';
   let isAurebesh = title === 'Aurebesh';
   let isDeseret = title === 'Deseret';
+  let phoneticQuestionChar = 'ch';
+  let phoneticAnswerChar1 = 'k';
+  let phoneticAnswerChar2 = 'tiy';
+  let phoneticAnswerChar3 = null;
 
   const handleTransliterate = () => {
     const words = text.split(/\s+/);
@@ -45,15 +50,16 @@ export default function PageContent({
 
   if (isDialogOpen) {
     showDialog = (
-      <div className="dialog-overlay">
-        <div className="dialog-box">
-          <h3>Word Review</h3>
-          <p>Does the '' in {transliteratedText} sound like '' or ''?</p>
-          <button onClick={handleCloseDialog}>Repace</button>
-          <button onClick={handleCloseDialog}>Skip</button>
-          <button onClick={handleCloseDialog}>Close</button>
-        </div>
-      </div>
+      <>
+        <QuestionDialog
+        enteredText={text}
+        onClick={handleCloseDialog}
+        phoneticQuestionChar={phoneticQuestionChar}
+        phoneticAnswerChar1={phoneticAnswerChar1}
+        phoneticAnswerChar2={phoneticAnswerChar2}
+        phoneticAnswerChar3={phoneticAnswerChar3}
+        />
+      </>
     )
   }
 
