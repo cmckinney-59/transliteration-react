@@ -88,7 +88,7 @@ export default function PageContent({
         </div>
         <p>{transliteratedText}</p>
         <div>
-          <TransliterateButton isActive={textareaHasText} onClick={handleTransliterate} />
+          <TransliterateButton isActive={textareaHasText} onClick={handleTransliterate} text={text}/>
         </div>
         {showDialog}
       </div>
