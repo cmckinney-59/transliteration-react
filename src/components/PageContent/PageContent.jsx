@@ -1,6 +1,7 @@
 import './PageContent.css';
 
 import Transliterator from '../Transliterator/Transliterator';
+import Description from '../Description/Description';
 
 export default function PageContent({
   image,
@@ -24,11 +25,11 @@ export default function PageContent({
   return (
     <div>
       {showTransliterator}
-      <div>
-        <h2>{whatIs}</h2>
-        <img src={image} alt={title} />
-        <p>{description}</p>
-      </div>
+      <Description
+        image={image}
+        whatIs={whatIs}
+        description={description}
+      />
     </div>
   );
 }
