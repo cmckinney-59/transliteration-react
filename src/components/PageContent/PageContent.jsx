@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './PageContent.css';
 import TransliterateButton from '../Buttons/TransliterateButton';
 import QuestionDialog from '../Dialog/QuestionDialog';
+import { PHONETIC_LETTERS } from '../../phonetic-letters';
 
 export default function PageContent({
   image,
@@ -20,10 +21,6 @@ export default function PageContent({
   let isBaybayin = title === 'Baybayin';
   let isAurebesh = title === 'Aurebesh';
   let isDeseret = title === 'Deseret';
-  let phoneticQuestionChar = 'ch';
-  let phoneticAnswerChar1 = 'k';
-  let phoneticAnswerChar2 = 'tiy';
-  let phoneticAnswerChar3 = null;
 
   const handleTransliterate = () => {
     const words = text.split(/\s+/);
@@ -48,19 +45,32 @@ export default function PageContent({
     setIsDialogOpen(false);
   };
 
+  function getPhoneticData(text) {
+    text = text.toLowerCase();
+  
+    if (text.includes("ch")) return PHONETIC_LETTERS.CH;
+    if (text.includes("c") && !text.includes("ch")) return PHONETIC_LETTERS.C;
+    if (text.includes("qu")) return PHONETIC_LETTERS.QU;
+    if (text.includes("j")) return PHONETIC_LETTERS.J;
+  
+    return null;
+  }
+
   if (isDialogOpen) {
-    showDialog = (
-      <>
+    const phoneticData = getPhoneticData(text);
+  
+    if (phoneticData) {
+      showDialog = (
         <QuestionDialog
-        enteredText={text}
-        onClick={handleCloseDialog}
-        phoneticQuestionChar={phoneticQuestionChar}
-        phoneticAnswerChar1={phoneticAnswerChar1}
-        phoneticAnswerChar2={phoneticAnswerChar2}
-        phoneticAnswerChar3={phoneticAnswerChar3}
+          enteredText={text}
+          onClick={handleCloseDialog}
+          phoneticQuestionChar={phoneticData.phoneticQuestion}
+          phoneticAnswerChar1={phoneticData.phoneticAnswer1}
+          phoneticAnswerChar2={phoneticData.phoneticAnswer2}
+          phoneticAnswerChar3={phoneticData.phoneticAnswer3 || null} // Handle missing answers
         />
-      </>
-    )
+      );
+    }
   }
 
   if (title !== 'Home') {
