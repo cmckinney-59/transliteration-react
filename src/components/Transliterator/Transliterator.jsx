@@ -95,7 +95,10 @@ export default function Transliterator({
         </div>
         <p>{transliteratedText}</p>
         <div>
-          <TransliterateButton isActive={textareaHasText} onClick={handleTransliterate} text={text}/>
+          <TransliterateButton
+          isActive={textareaHasText} 
+          onClick={handleTransliterate}
+          text={text}/>
         </div>
       {showDialog}
     </div>
