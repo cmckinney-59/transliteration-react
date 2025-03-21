@@ -14,20 +14,20 @@ export const PAGES = {
         title: 'Baybayin',
         whatIs: 'What is Baybayin?',
         description: 'This is the Baybayin description',
-        transliterator: 'Baybayin transliterator'
+        transHeader: 'Baybayin transliterator'
     },
     Aurebesh: {
         image: theBoisImg,
         title: 'Aurebesh',
         whatIs: 'What is Aurebesh?',
         description: 'This is the Aurebesh description',
-        transliterator: 'Aurebesh transliterator'
+        transHeader: 'Aurebesh transliterator'
     },
     Deseret: {
         image: beeImg,
         title: 'Deseret',
         whatIs: 'What is Deseret?',
         description: 'This is the Deseret description',
-        transliterator: 'Deseret transliterator'
+        transHeader: 'Deseret transliterator'
     },
 }
