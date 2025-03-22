@@ -8,9 +8,9 @@ export default function AlphabetPicker({ selectedPage, handleClick}) {
       <label htmlFor="options">Choose an alphabet: </label>
       <select id="options" value={selectedPage} onChange={handleClick}>
         <option value="">Select...</option>
-        {alphabets.map((alphabet) => (
-          <option key={alphabet} value={alphabet}>{alphabet}</option>
-        ))}
+          {alphabets.map((alphabet) => (
+            <option key={alphabet} value={alphabet}>{alphabet}</option>
+          ))}
       </select>
     </section>
   );
