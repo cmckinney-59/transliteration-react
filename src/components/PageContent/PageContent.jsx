@@ -8,7 +8,6 @@ export default function PageContent({
   title,
   description,
   whatIs,
-  transHeader
 }) {
 
   let showTransliterator = null;
@@ -16,7 +15,6 @@ export default function PageContent({
   if (title !== 'Home') {
     showTransliterator = (
       <Transliterator
-        transHeader={transHeader}
         title={title}
       />
     );

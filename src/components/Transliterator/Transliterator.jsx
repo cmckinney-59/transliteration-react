@@ -6,7 +6,6 @@ import QuestionDialog from '../Dialog/QuestionDialog';
 import { PHONETIC_LETTERS } from '../../phonetic-letters';
 
 export default function Transliterator({
-  transHeader,
   title
   }) {
 
@@ -73,7 +72,7 @@ export default function Transliterator({
 
   return (
     <div>
-      <h2>{transHeader}</h2>
+      <h2>{title} Transliterator</h2>
         <div className="transliteration-container">
           <textarea
             className="transliteration-textarea"
