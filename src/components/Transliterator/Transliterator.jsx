@@ -53,6 +53,7 @@ export default function Transliterator({
     return null;
   }
 
+  // Shows the dialog asking the user questions about phonetics
   if (isDialogOpen) {
     const phoneticData = getPhoneticData(text);
   
