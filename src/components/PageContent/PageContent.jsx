@@ -10,19 +10,13 @@ export default function PageContent({
   whatIs,
 }) {
 
-  let showTransliterator = null;
-
-  if (title !== 'Home') {
-    showTransliterator = (
-      <Transliterator
-        title={title}
-      />
-    );
-  }
-
   return (
     <div>
-      {showTransliterator}
+      {
+        (title === 'Home') 
+        ? ''
+        : <Transliterator title={title}/>
+      }
       <Description
         image={image}
         whatIs={whatIs}

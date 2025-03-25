@@ -20,9 +20,11 @@ export default function Transliterator({
   let isDeseret = title === 'Deseret';
 
   const handleTransliterate = () => {
-    const words = text.split(/\s+/);
-  
-    for (let word of words) {
+    const wordsArray = text.split(/\s+/);
+    const wordsAlphabeticalOrder = wordsArray.sort((a, b) => a.localeCompare(b));
+    const wordsDuplicatesRemoved = wordsAlphabeticalOrder.filter((word, index, arr) => index === 0 || word !== arr[index - 1]);
+
+    for (let word of wordsDuplicatesRemoved) {
       const wordIncludesQuestion = /ch|qu|c|j/i.test(word);
       
       if (wordIncludesQuestion) {
