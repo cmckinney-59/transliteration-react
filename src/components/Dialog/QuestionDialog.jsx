@@ -7,7 +7,7 @@ export default function QuestionDialog({
   phoneticAnswerChar3
 }) {
     return (
-    <div className="dialog-overlay">
+    <dialog className="dialog-overlay">
         <div className="dialog-box">
           <h3>Word Review</h3>
           <p>Does the '{phoneticQuestionChar}' in {enteredText} sound like '{phoneticAnswerChar1}' or '{phoneticAnswerChar2}' or '{phoneticAnswerChar3}'?</p>
@@ -21,6 +21,6 @@ export default function QuestionDialog({
             <button onClick={onClick}>Close</button>
           </div>
         </div>
-      </div>
+      </dialog>
     )
 }

@@ -23,8 +23,13 @@ export default function Transliterator({
     const wordsArray = text.split(/\s+/);
     const wordsAlphabeticalOrder = wordsArray.sort((a, b) => a.localeCompare(b));
     const wordsDuplicatesRemoved = wordsAlphabeticalOrder.filter((word, index, arr) => index === 0 || word !== arr[index - 1]);
+    const wordsDictionary = wordsDuplicatesRemoved.reduce((dict, word) => {
+      dict[word] = "";
+      return dict;
+    }, {});
+  
 
-    for (let word of wordsDuplicatesRemoved) {
+    for (let word of wordsDictionary) {
       const wordIncludesQuestion = /ch|qu|c|j/i.test(word);
       
       if (wordIncludesQuestion) {
