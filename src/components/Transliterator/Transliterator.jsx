@@ -12,6 +12,7 @@ export default function Transliterator({
   const [text, setText] = useState("");
   const [transliteratedText, setTransliteratedText] = useState("")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogWord, setDialogWord] = useState(""); // Store the word that triggers the dialog
 
   const textareaHasText = text.length > 0;
   let showDialog = null;
@@ -33,13 +34,16 @@ export default function Transliterator({
 
     for (const key of Object.keys(wordsDictionary)) {
       const wordIncludesQuestion = /ch|qu|c|j/i.test(key);
+      const wordIncludesCapital = /[A-Z]/.test(key);
       
-      if (wordIncludesQuestion) {
+      if (wordIncludesQuestion || wordIncludesCapital) {
+        setDialogWord(key);
         setIsDialogOpen(true);
         return key;
       }
       wordsDictionary[key] = key.toLowerCase();
     }
+    console.log(wordsDictionary);
   }
 
   function runAgainstRules (text) {
@@ -72,7 +76,7 @@ export default function Transliterator({
     if (phoneticData) {
       showDialog = (
         <QuestionDialog
-          enteredText={text}
+          enteredText={dialogWord}
           onClick={handleCloseDialog}
           phoneticQuestionChar={phoneticData.phoneticQuestion}
           phoneticAnswerChar1={phoneticData.phoneticAnswer1}
