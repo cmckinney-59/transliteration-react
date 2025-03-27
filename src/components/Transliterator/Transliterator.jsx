@@ -22,7 +22,9 @@ export default function Transliterator({
   const handleTransliterate = () => {
     const wordsArray = text.split(/\s+/);
     const wordsAlphabeticalOrder = wordsArray.sort((a, b) => a.localeCompare(b));
-    const wordsDuplicatesRemoved = wordsAlphabeticalOrder.filter((word, index, arr) => index === 0 || word !== arr[index - 1]);
+    const wordsDuplicatesRemoved = wordsAlphabeticalOrder.filter(
+      (word, index, arr) => index === 0 || word !== arr[index - 1]
+    );
     const wordsDictionary = wordsDuplicatesRemoved.reduce((dict, word) => {
       dict[word] = "";
       return dict;
@@ -36,8 +38,7 @@ export default function Transliterator({
         setIsDialogOpen(true);
         return key;
       }
-
-      runAgainstRules(key)
+      wordsDictionary[key] = key.toLowerCase();
     }
   }
 
