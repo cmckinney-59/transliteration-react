@@ -29,15 +29,19 @@ export default function Transliterator({
     }, {});
   
 
-    for (let word of wordsDictionary) {
-      const wordIncludesQuestion = /ch|qu|c|j/i.test(word);
+    for (const key of Object.keys(wordsDictionary)) {
+      const wordIncludesQuestion = /ch|qu|c|j/i.test(key);
       
       if (wordIncludesQuestion) {
         setIsDialogOpen(true);
-        return word;
+        return key;
       }
+
+      runAgainstRules(key)
     }
-  
+  }
+
+  function runAgainstRules (text) {
     if (isBaybayin) {
       setTransliteratedText(processBaybayinText(text));
     } else {
