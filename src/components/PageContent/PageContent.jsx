@@ -12,11 +12,7 @@ export default function PageContent({
 
   return (
     <div>
-      {
-        (title === 'Home') 
-        ? ''
-        : <Transliterator title={title}/>
-      }
+      { title !== 'Home' && <Transliterator title={title}/> }
       <Description
         image={image}
         whatIs={whatIs}
