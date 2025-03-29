@@ -17,7 +17,7 @@ export default function processBaybayinText(text) {
 
   function capitalizeSubsequentVowels(text) {
     const vowelRegex = /([aeiou])([aeiou]+)/gi;
-    return text.replace(vowelRegex, (firstVowel, subsequentVowels) => { firstVowel + subsequentVowels.toUpperCase(); });
+    return text.replace(vowelRegex, (firstVowel, subsequentVowels) =>  firstVowel + subsequentVowels.toUpperCase());
   }
 
   function removeDuplicateConsonants(text) {
@@ -64,5 +64,5 @@ export default function processBaybayinText(text) {
   }
 
   function capitalizeVowel(text) {
-    return text.replace(/([.!?])\s*([aeiou])|(^|\s)([aeiou])/gi, (p1, p2, p3, p4) => {(p1 ? p1 : p3) + (p2 ? p2.toUpperCase() : p4 ? p4.toUpperCase() : '');});
+    return text.replace(/([.!?])\s*([aeiou])|(^|\s)([aeiou])/gi, (p1, p2, p3, p4) => (p1 ? p1 : p3) + (p2 ? p2.toUpperCase() : p4 ? p4.toUpperCase() : ''));
   }
