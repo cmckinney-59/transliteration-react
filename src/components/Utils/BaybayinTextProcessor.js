@@ -1,58 +1,28 @@
 export default function processBaybayinText(text) {
-    let processedText = toLowerCaseText(text);
-    processedText = replaceShWithSiy(processedText);
-    processedText = replacePhWithF(processedText);
-    processedText = replaceThWithT(processedText);
-    processedText = replaceXWithKs(processedText);
+    let processedText = text.toLowerCase();
+    processedText = processedText.replace(/sh/g, 'siy');
+    processedText = processedText.replace(/ph/g, 'f');
+    processedText = processedText.replace(/th/g, 't');
+    processedText = processedText.replace(/x/g, 'k+s');
     processedText = capitalizeSubsequentVowels(processedText);
     processedText = removeDuplicateConsonants(processedText);
-    processedText = replaceNgAndMga(processedText);
-    processedText = replaceNgWithCapitalN(processedText);
+    processedText = processedText.replace(/ ng /g, ' naN ').replace(/ mga /g, ' maNa ');
+    processedText = processedText.replace(/ng/g, 'N');
     processedText = addPlusIfConsonant(processedText);
-    processedText = removeAAfterConsonant(processedText);
+    processedText = removeAAfterConsonant(processedText)
     processedText = capitalizeVowel(processedText);
-    processedText = removeDash(processedText);
+    processedText = processedText.replace(/-/g, '');
     return processedText;
-  }
-
-  function toLowerCaseText(text) {
-    return text.toLowerCase();
-  }
-
-  function replaceShWithSiy(text) {
-    return text.replace(/sh/g, 'siy');
-  }
-
-  function replacePhWithF(text) {
-    return text.replace(/ph/g, 'f');
-  }
-
-  function replaceThWithT(text) {
-    return text.replace(/th/g, 't');
-  }
-
-  function replaceXWithKs(text) {
-    return text.replace(/x/g, 'k+s');
   }
 
   function capitalizeSubsequentVowels(text) {
     const vowelRegex = /([aeiou])([aeiou]+)/gi;
-    return text.replace(vowelRegex, (firstVowel, subsequentVowels) => {
-      return firstVowel + subsequentVowels.toUpperCase();
-    });
+    return text.replace(vowelRegex, (firstVowel, subsequentVowels) => { firstVowel + subsequentVowels.toUpperCase(); });
   }
 
   function removeDuplicateConsonants(text) {
     const consonantRegex = /([bcdfghjklmnpqrstvwxyz])\1+/gi;
     return text.replace(consonantRegex, '$1');
-  }
-
-  function replaceNgAndMga(text) {
-    return text.replace(/ ng /g, ' naN ').replace(/ mga /g, ' maNa ');
-  }
-
-  function replaceNgWithCapitalN(text) {
-    return text.replace(/ng/g, 'N');
   }
 
   function addPlusIfConsonant(text) {
@@ -77,11 +47,7 @@ export default function processBaybayinText(text) {
             continue;
           }
 
-          if (i < word.length - 1 && consonantRegex.test(word[i]) && consonantRegex.test(word[i + 1])) {
-            transformedWord += '+';
-          }
-
-          if (i < word.length - 1 && consonantRegex.test(word[i]) && punctuationRegex.test(word[i + 1])) {
+          if (i < word.length - 1 && consonantRegex.test(word[i]) && (consonantRegex.test(word[i + 1]) || punctuationRegex.test(word[i + 1]))) {
             transformedWord += '+';
           }
         }
@@ -94,15 +60,9 @@ export default function processBaybayinText(text) {
     }
 
   function removeAAfterConsonant(text) {
-    return text.replace(/([BbCcDdFfGgHhJjKkLlMmNnPpQqRrSsTtVvWwXxYyZz])a/g, '$1');
+    return text.replace(/([bcdfghjklmnpqrstvwxyz])a/gi, '$1');
   }
 
   function capitalizeVowel(text) {
-    return text.replace(/([.!?])\s*([aeiou])|(^|\s)([aeiou])/gi, (p1, p2, p3, p4) => {
-      return (p1 ? p1 : p3) + (p2 ? p2.toUpperCase() : p4 ? p4.toUpperCase() : '');
-    });
-  }
-
-  function removeDash(text) {
-    return text.replace(/-/g, '');
+    return text.replace(/([.!?])\s*([aeiou])|(^|\s)([aeiou])/gi, (p1, p2, p3, p4) => {(p1 ? p1 : p3) + (p2 ? p2.toUpperCase() : p4 ? p4.toUpperCase() : '');});
   }
