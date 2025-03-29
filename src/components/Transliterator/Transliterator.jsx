@@ -7,14 +7,15 @@ import processBaybayinText from '../Utils/BaybayinTextProcessor'
 import { PHONETIC_LETTERS } from '../../phonetic-letters';
 
 function getPhoneticData(text) {
-  text = text.toLowerCase();
 
-  if (text.includes("ch")) return PHONETIC_LETTERS.CH;
-  if (text.includes("c") && !text.includes("ch")) return PHONETIC_LETTERS.C;
-  if (text.includes("qu")) return PHONETIC_LETTERS.QU;
-  if (text.includes("j")) return PHONETIC_LETTERS.J;
-
-  return null;
+  //TODO: Try making switch statement
+  if (/[A-Z]/.test(text)) return PHONETIC_LETTERS.none;
+  if (/ch/i.test(text)) return PHONETIC_LETTERS.CH;
+  if ((/c/i.test(text)) && (!/ch/i.test(text))) return PHONETIC_LETTERS.C;
+  if (/qu/i.test(text)) return PHONETIC_LETTERS.QU;
+  if (/j/i.test(text)) return PHONETIC_LETTERS.J;
+  
+  return PHONETIC_LETTERS.none
 }
 
 export default function Transliterator({
@@ -76,7 +77,7 @@ export default function Transliterator({
       showDialog = (
         <QuestionDialog
           enteredText={dialogWord}
-          onClick={handleCloseDialog}
+          close={handleCloseDialog}
           phoneticQuestionChar={phoneticData.phoneticQuestion}
           phoneticAnswerChar1={phoneticData.phoneticAnswer1}
           phoneticAnswerChar2={phoneticData.phoneticAnswer2}
