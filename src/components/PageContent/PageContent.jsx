@@ -13,11 +13,7 @@ export default function PageContent({
   return (
     <div>
       { title && title !== 'Home' && <Transliterator title={title}/> }
-      <Description
-        image={image}
-        whatIs={whatIs}
-        description={description}
-      />
+      <Description  image={image} whatIs={whatIs} description={description} />
     </div>
   );
 }
