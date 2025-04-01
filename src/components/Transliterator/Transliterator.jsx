@@ -27,6 +27,7 @@ export default function Transliterator({
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogWord, setDialogWord] = useState("");
 
+  const phoneticData = getPhoneticData(text);
   const textareaHasText = text.length > 0;
   let showDialog = null;
   let isBaybayin = title === 'Baybayin';
@@ -65,10 +66,16 @@ export default function Transliterator({
     setIsDialogOpen(false);
   };
 
+  const handlePhoneticAnswerSelected = (selectedAnswer) => {
+    const updatedWord = dialogWord.replace(new RegExp(phoneticData.phoneticQuestion, "gi"), selectedAnswer);
+  
+    const updatedText = text.replace(new RegExp(`\\b${dialogWord}\\b`, "gi"), updatedWord);
+  
+    setTransliteratedText(updatedText);
+  };
+
   // Shows the dialog asking the user questions about phonetics
   if (isDialogOpen) {
-    const phoneticData = getPhoneticData(text);
-
     if (phoneticData) {
       showDialog = (
         <QuestionDialog
@@ -78,6 +85,7 @@ export default function Transliterator({
           phoneticAnswerChar1={phoneticData.phoneticAnswer1}
           phoneticAnswerChar2={phoneticData.phoneticAnswer2}
           phoneticAnswerChar3={phoneticData.phoneticAnswer3 || null}
+          onPhoneticAnswerSelected={handlePhoneticAnswerSelected}
         />
       );
     }

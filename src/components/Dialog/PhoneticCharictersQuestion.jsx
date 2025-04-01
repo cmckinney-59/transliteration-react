@@ -3,7 +3,8 @@ export default function PhoneticCharactersQuestion({
     phoneticQuestionChar,
     phoneticAnswerChar1,
     phoneticAnswerChar2,
-    phoneticAnswerChar3
+    phoneticAnswerChar3,
+    onSelectPhoneticAnswer
   }) {
     const phoneticAnswers = [phoneticAnswerChar1, phoneticAnswerChar2, phoneticAnswerChar3].filter(Boolean);
 
@@ -12,7 +13,9 @@ export default function PhoneticCharactersQuestion({
         <p>What does the '{phoneticQuestionChar}' in '{enteredText}' sound like?</p>
         <div className="phonetic-answers">
           {phoneticAnswers.map((answer) => (
-            <button key={answer}>{answer}</button>
+            <button key={answer} onClick={() => onSelectPhoneticAnswer(answer)}>
+                {answer}
+            </button>
           ))}
         </div>
       </>
