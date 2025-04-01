@@ -77,7 +77,7 @@ export default function Transliterator({
           phoneticQuestionChar={phoneticData.phoneticQuestion}
           phoneticAnswerChar1={phoneticData.phoneticAnswer1}
           phoneticAnswerChar2={phoneticData.phoneticAnswer2}
-          phoneticAnswerChar3={phoneticData.phoneticAnswer3 || null} // Handle missing answers
+          phoneticAnswerChar3={phoneticData.phoneticAnswer3 || null}
         />
       );
     }

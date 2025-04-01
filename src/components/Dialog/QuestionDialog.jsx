@@ -12,7 +12,7 @@ export default function QuestionDialog({ enteredText, ...props }) {
 
           { wordIncludesCapital
           ? <ProperNownQuestion {...props}/>
-          : <PhoneticCharactersQuestion {...props}/>}\
+          : <PhoneticCharactersQuestion {...props}/>}
 
           <DialogNavButtons {...props}/>
         </div>
