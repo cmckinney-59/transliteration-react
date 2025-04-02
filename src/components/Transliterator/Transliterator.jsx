@@ -76,7 +76,15 @@ export default function Transliterator({
 
   // Shows the dialog asking the user questions about phonetics
   if (isDialogOpen) {
-    if (phoneticData) {
+    const wordIncludesCapital = /[A-Z]/.test(dialogWord);
+    if (wordIncludesCapital) {
+      showDialog = (
+        <QuestionDialog
+          enteredText={dialogWord}
+          close={handleCloseDialog}
+        />
+      );
+    } else if (phoneticData) {
       showDialog = (
         <QuestionDialog
           enteredText={dialogWord}
