@@ -11,7 +11,7 @@ export default function QuestionDialog({ enteredText, onPhoneticAnswerSelected, 
           <h3>Word Review</h3>
 
           { wordIncludesCapital ? (
-            <ProperNownQuestion {...props}/> 
+            <ProperNownQuestion enteredText={enteredText} {...props}/> 
           ) : (
             <PhoneticCharactersQuestion {...props}
             onSelectPhoneticAnswer={onPhoneticAnswerSelected}

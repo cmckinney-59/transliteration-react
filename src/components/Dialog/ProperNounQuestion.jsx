@@ -22,11 +22,19 @@ export default function ProperNownQuestion({
 
 
   if (!isProperNoun && !notPhonetic) {
-    showProperNounQuestion = <YesNoQuestion handleIsProperNoun={handleIsProperNoun} {...props} />;
+    showProperNounQuestion = 
+      <YesNoQuestion 
+        handleIsProperNoun={handleIsProperNoun} 
+        enteredText={enteredText}
+        {...props} />;
   }
 
   if (isProperNoun && !notPhonetic) {
-    showPhoneticQuestion = <YesNoQuestion handleIsProperNoun={handleNotPhonetic} {...props} />;
+    showPhoneticQuestion =
+      <YesNoQuestion
+      handleIsProperNoun={handleNotPhonetic}
+      enteredText={enteredText}
+      {...props} />;
   }
 
   if (isProperNoun && notPhonetic) {
