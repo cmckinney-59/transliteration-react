@@ -1,14 +1,13 @@
-import './App.css';
-import Header from './components/Header/Header.jsx'
+import "./App.css";
+import Header from "./components/Header/Header.jsx";
 // import Description from './components/Description/Description.jsx'
 // import Transliterator from './components/Transliterator/Transliterator.jsx'
-import ContentContainer from './components/ContentContainer/ContentContainer.jsx';
+import ContentContainer from "./components/ContentContainer/ContentContainer.jsx";
 
 function App() {
-
   return (
     <>
-      <Header/>
+      <Header />
       <main>
         <ContentContainer />
       </main>
