@@ -27,6 +27,7 @@ export default function Transliterator({
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogWord, setDialogWord] = useState("");
 
+  const phoneticData = getPhoneticData(text);
   const textareaHasText = text.length > 0;
   let showDialog = null;
   let isBaybayin = title === 'Baybayin';
@@ -35,11 +36,7 @@ export default function Transliterator({
 
   const handleTransliterate = () => {
     const wordsArray = text.split(/\s+/);
-    const wordsAlphabeticalOrder = wordsArray.sort((a, b) => a.localeCompare(b));
-    const wordsDuplicatesRemoved = wordsAlphabeticalOrder.filter(
-      (word, index, arr) => index === 0 || word !== arr[index - 1]
-    );
-    const wordsDictionary = wordsDuplicatesRemoved.reduce((dict, word) => {
+    const wordsDictionary = wordsArray.reduce((dict, word) => {
       dict[word] = "";
       return dict;
     }, {});
@@ -69,11 +66,25 @@ export default function Transliterator({
     setIsDialogOpen(false);
   };
 
+  const handlePhoneticAnswerSelected = (selectedAnswer) => {
+    const updatedWord = dialogWord.replace(new RegExp(phoneticData.phoneticQuestion, "gi"), selectedAnswer);
+  
+    const updatedText = text.replace(new RegExp(`\\b${dialogWord}\\b`, "gi"), updatedWord);
+  
+    setTransliteratedText(updatedText);
+  };
+
   // Shows the dialog asking the user questions about phonetics
   if (isDialogOpen) {
-    const phoneticData = getPhoneticData(text);
-
-    if (phoneticData) {
+    const wordIncludesCapital = /[A-Z]/.test(dialogWord);
+    if (wordIncludesCapital) {
+      showDialog = (
+        <QuestionDialog
+          enteredText={dialogWord}
+          close={handleCloseDialog}
+        />
+      );
+    } else if (phoneticData) {
       showDialog = (
         <QuestionDialog
           enteredText={dialogWord}
@@ -81,7 +92,8 @@ export default function Transliterator({
           phoneticQuestionChar={phoneticData.phoneticQuestion}
           phoneticAnswerChar1={phoneticData.phoneticAnswer1}
           phoneticAnswerChar2={phoneticData.phoneticAnswer2}
-          phoneticAnswerChar3={phoneticData.phoneticAnswer3 || null} // Handle missing answers
+          phoneticAnswerChar3={phoneticData.phoneticAnswer3 || null}
+          onPhoneticAnswerSelected={handlePhoneticAnswerSelected}
         />
       );
     }

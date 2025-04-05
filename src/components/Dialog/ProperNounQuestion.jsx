@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import YesNoQuestion from './YesNoQuestion';
 
 export default function ProperNownQuestion({
     enteredText,
-    next
+    ...props
   }) {
     const [isProperNoun, setIsProperNoun] = useState(false);
     const [notPhonetic, setNotPhonetic] = useState(false);
@@ -21,27 +22,19 @@ export default function ProperNownQuestion({
 
 
   if (!isProperNoun && !notPhonetic) {
-    showProperNounQuestion = (
-        <div>
-            <p>Is {enteredText} a proper noun?</p>
-            <div>
-                <button onClick={handleIsProperNoun}>Yes</button>
-                <button onClick={next}>No</button>
-            </div>
-        </div>
-    );
+    showProperNounQuestion = 
+      <YesNoQuestion 
+        handleIsProperNoun={handleIsProperNoun} 
+        enteredText={enteredText}
+        {...props} />;
   }
 
   if (isProperNoun && !notPhonetic) {
-    showPhoneticQuestion = (
-        <div>
-            <p>Is {enteredText} spelled phonetically?</p>
-            <div>
-                <button onClick={next}>Yes</button>
-                <button onClick={handleNotPhonetic}>No</button>
-            </div>
-        </div>
-    );
+    showPhoneticQuestion =
+      <YesNoQuestion
+      handleIsProperNoun={handleNotPhonetic}
+      enteredText={enteredText}
+      {...props} />;
   }
 
   if (isProperNoun && notPhonetic) {
