@@ -1,1 +1,36 @@
-- Make regexs global
+TRANSLITERATOR WEB APP ROADMAP
+
+PHASE 1 : MVP
+2/9
+
+    CURRENTLY WORKING ON
+    - Question Dialog
+        - Proper nouns
+        - Ch, C, Qu, J
+    - Output box
+    - Items must be stored in dictionary
+    - Gauntlet
+
+    PENDING
+    - Save to button
+        - Word
+        - Excell
+        - Txt
+
+    COMPLETE
+    - Input box
+    - Transliterate Button
+
+PHASE 2 : UI - Color pallet - Header - Footer - Fonts - Buttons - Input boxes
+
+PHASE 3 : OPTOMIZE - Work with Jeremiah - Make regexs global
+
+PHASE 4 : RELEASE
+
+PHASE 5 : ABOUT/ HOW TO READ
+
+PHASE 6 : DESERET
+
+PHASE 7 : AUREBESH
+
+PHASE 8 : OTHER FILIPINO ALPHABETS
