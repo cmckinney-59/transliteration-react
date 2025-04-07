@@ -31,30 +31,43 @@ export default function Transliterator({ title }) {
   let isDeseret = title === "Deseret";
 
   const handleTransliterate = () => {
-    const wordsArray = text.split(/\s+/);
-    const wordsDictionary = wordsArray.reduce((dict, word) => {
-      dict[word] = "";
-      return dict;
-    }, {});
+    const wordsDictionary = text
+      .trim()
+      .split(/\s+/)
+      .reduce((dict, word) => {
+        dict[word] = "";
+        return dict;
+      }, {});
 
-    for (const key of Object.keys(wordsDictionary)) {
-      const wordIncludesQuestion = /ch|qu|c|j/i.test(key);
-      const wordIncludesCapital = /[A-Z]/.test(key);
+    for (const word of Object.keys(wordsDictionary)) {
+      const wordIncludesQuestion = /ch|qu|c|j/i.test(word);
+      const wordIncludesCapital = /[A-Z]/.test(word);
 
       if (wordIncludesQuestion || wordIncludesCapital) {
-        setDialogWord(key);
+        setDialogWord(word);
         setIsDialogOpen(true);
+        // You probably want to wait for dialog response before updating the dictionary
+      } else {
+        const result = runAgainstRules(word);
+        wordsDictionary[word] = result;
       }
     }
-    runAgainstRules(transliteratedText);
+
     console.log(wordsDictionary);
+    const finalOutput = text
+      .trim()
+      .split(/\s+/)
+      .map((word) => wordsDictionary[word])
+      .join(" ");
+    setTransliteratedText(finalOutput);
+    console.log(finalOutput);
   };
 
   function runAgainstRules(text) {
     if (isBaybayin) {
-      setTransliteratedText(processBaybayinText(text));
+      return processBaybayinText(text);
     } else {
-      setTransliteratedText(text);
+      return text;
     }
   }
 
