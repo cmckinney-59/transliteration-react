@@ -22,6 +22,7 @@ export default function Transliterator({ title }) {
   const [transliteratedText, setTransliteratedText] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogWord, setDialogWord] = useState("");
+  const [wordsDictionary, setWordsDictionary] = useState({});
 
   const phoneticData = getPhoneticData(text);
   const textareaHasText = text.length > 0;
@@ -31,7 +32,7 @@ export default function Transliterator({ title }) {
   let isDeseret = title === "Deseret";
 
   const handleTransliterate = () => {
-    const wordsDictionary = text
+    const initialDict = text
       .trim()
       .split(/\s+/)
       .reduce((dict, word) => {
@@ -39,28 +40,28 @@ export default function Transliterator({ title }) {
         return dict;
       }, {});
 
-    for (const word of Object.keys(wordsDictionary)) {
-      const wordIncludesQuestion = /ch|qu|c|j/i.test(word);
-      const wordIncludesCapital = /[A-Z]/.test(word);
+    setWordsDictionary(initialDict);
 
-      if (wordIncludesQuestion || wordIncludesCapital) {
+    for (const word of Object.keys(initialDict)) {
+      const needsDialog = /ch|qu|c|j/i.test(word) || /[A-Z]/.test(word);
+
+      if (needsDialog) {
         setDialogWord(word);
         setIsDialogOpen(true);
-        // You probably want to wait for dialog response before updating the dictionary
+        break; // Stop and wait for dialog before continuing
       } else {
         const result = runAgainstRules(word);
-        wordsDictionary[word] = result;
+        initialDict[word] = result;
       }
     }
 
-    console.log(wordsDictionary);
-    const finalOutput = text
-      .trim()
-      .split(/\s+/)
-      .map((word) => wordsDictionary[word])
-      .join(" ");
-    setTransliteratedText(finalOutput);
-    console.log(finalOutput);
+    setTransliteratedText(
+      text
+        .trim()
+        .split(/\s+/)
+        .map((word) => initialDict[word])
+        .join(" ")
+    );
   };
 
   function runAgainstRules(text) {
@@ -81,12 +82,33 @@ export default function Transliterator({ title }) {
       selectedAnswer
     );
 
-    const updatedText = text.replace(
-      new RegExp(`\\b${dialogWord}\\b`, "gi"),
-      updatedWord
+    const updatedDict = { ...wordsDictionary };
+    updatedDict[dialogWord] = runAgainstRules(updatedWord);
+
+    setWordsDictionary(updatedDict);
+    setIsDialogOpen(false);
+
+    // Process next word that needs dialog
+    const remainingWords = Object.keys(updatedDict).filter(
+      (word) => updatedDict[word] === ""
     );
 
-    setTransliteratedText(updatedText);
+    if (remainingWords.length > 0) {
+      const nextWord = remainingWords[0];
+      const needsDialog = /ch|qu|c|j/i.test(nextWord) || /[A-Z]/.test(nextWord);
+      if (needsDialog) {
+        setDialogWord(nextWord);
+        setIsDialogOpen(true);
+      }
+    }
+
+    // Finally, update the final output
+    const finalOutput = text
+      .trim()
+      .split(/\s+/)
+      .map((word) => updatedDict[word])
+      .join(" ");
+    setTransliteratedText(finalOutput);
   };
 
   // Shows the dialog asking the user questions about phonetics
