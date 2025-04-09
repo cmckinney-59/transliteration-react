@@ -3,7 +3,7 @@ import YesNoQuestion from "./YesNoQuestion";
 
 export default function ProperNownQuestion({ enteredText, next }) {
   const [isProperNoun, setIsProperNoun] = useState(false);
-  const [notPhonetic, setNotPhonetic] = useState(false);
+  const [isNotPhonetic, setIsNotPhonetic] = useState(false);
 
   let showProperNounQuestion = null;
   let showPhoneticQuestion = null;
@@ -13,26 +13,14 @@ export default function ProperNownQuestion({ enteredText, next }) {
     setIsProperNoun(true);
   };
 
-  const handleNotPhonetic = () => {
-    setNotPhonetic(true);
+  const handleIsNotPhonetic = () => {
+    setIsNotPhonetic(true);
   };
 
-  if (!isProperNoun && !notPhonetic) {
+  if (!isProperNoun && !isNotPhonetic) {
     showProperNounQuestion = (
       <>
         <p>Is "{enteredText}" a proper noun?</p>
-        <div>
-          <button onClick={next}>Yes</button>
-          <button onClick={handleNotPhonetic}>No</button>
-        </div>
-      </>
-    );
-  }
-
-  if (isProperNoun && !notPhonetic) {
-    showPhoneticQuestion = (
-      <>
-        <p>Is "{enteredText}" spelled phonetically?</p>
         <div>
           <button onClick={handleIsProperNoun}>Yes</button>
           <button onClick={next}>No</button>
@@ -41,7 +29,19 @@ export default function ProperNownQuestion({ enteredText, next }) {
     );
   }
 
-  if (isProperNoun && notPhonetic) {
+  if (isProperNoun && !isNotPhonetic) {
+    showPhoneticQuestion = (
+      <>
+        <p>Is "{enteredText}" spelled phonetically?</p>
+        <div>
+          <button onClick={handleIsProperNoun}>Yes</button>
+          <button onClick={handleIsNotPhonetic}>No</button>
+        </div>
+      </>
+    );
+  }
+
+  if (isProperNoun && isNotPhonetic) {
     showEnterPhoneticWord = (
       <div>
         <p>Please spell {enteredText} phonetically.</p>
