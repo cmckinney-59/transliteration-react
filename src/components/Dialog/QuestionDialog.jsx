@@ -2,28 +2,35 @@ import DialogNavButtons from "./DialogNavButtons";
 import PhoneticCharactersQuestion from "./PhoneticCharictersQuestion";
 import ProperNownQuestion from "./ProperNounQuestion";
 
-export default function QuestionDialog({ enteredText, onPhoneticAnswerSelected, ...props }) {
-    const wordIncludesCapital = /[A-Z]/.test(enteredText);
-  
-    return (
-      <dialog className="dialog-overlay">
-        <div className="dialog-box">
-          <h3>Word Review</h3>
+export default function QuestionDialog({
+  enteredText,
+  onPhoneticAnswerSelected,
+  onProperNounEntered,
+  ...props
+}) {
+  const wordIncludesCapital = /[A-Z]/.test(enteredText);
 
-          { wordIncludesCapital ? (
-            <ProperNownQuestion
-              enteredText={enteredText}
-              {...props}/> 
-          ) : (
-            <PhoneticCharactersQuestion
-              enteredText={enteredText}
-              onSelectPhoneticAnswer={onPhoneticAnswerSelected}
-              {...props}
-            />
-          ) }
+  return (
+    <dialog className="dialog-overlay">
+      <div className="dialog-box">
+        <h3>Word Review</h3>
 
-          <DialogNavButtons {...props}/>
-        </div>
-      </dialog>
-    )
+        {wordIncludesCapital ? (
+          <ProperNownQuestion
+            enteredText={enteredText}
+            onEnterProperNounAnswer={onProperNounEntered}
+            {...props}
+          />
+        ) : (
+          <PhoneticCharactersQuestion
+            enteredText={enteredText}
+            onSelectPhoneticAnswer={onPhoneticAnswerSelected}
+            {...props}
+          />
+        )}
+
+        <DialogNavButtons {...props} />
+      </div>
+    </dialog>
+  );
 }

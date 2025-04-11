@@ -76,6 +76,10 @@ export default function Transliterator({ title }) {
     setIsDialogOpen(false);
   };
 
+  const handleProperNounEntered = (properNounAnswer) => {
+    const updatedWord = dialogWord.replace(dialogWord, properNounAnswer);
+  };
+
   const handlePhoneticAnswerSelected = (selectedAnswer) => {
     const updatedWord = dialogWord.replace(
       new RegExp(phoneticData.phoneticQuestion, "gi"),
@@ -116,7 +120,11 @@ export default function Transliterator({ title }) {
     const wordIncludesCapital = /[A-Z]/.test(dialogWord);
     if (wordIncludesCapital) {
       showDialog = (
-        <QuestionDialog enteredText={dialogWord} close={handleCloseDialog} />
+        <QuestionDialog
+          enteredText={dialogWord}
+          close={handleCloseDialog}
+          onProperNounEntered={handleProperNounEntered}
+        />
       );
     } else if (phoneticData) {
       showDialog = (
