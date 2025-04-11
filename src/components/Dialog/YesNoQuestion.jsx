@@ -1,3 +1,5 @@
+// This is currently not being used. I may want to implement it once the whole app is working. As of now it adds an extra unneeded layer of complexity.
+
 export default function YesNoQuestion({
   enteredText,
   handleIsProperNoun,
