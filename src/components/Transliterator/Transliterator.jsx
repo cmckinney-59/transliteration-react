@@ -77,7 +77,36 @@ export default function Transliterator({ title }) {
   };
 
   const handleProperNounEntered = (properNounAnswer) => {
-    const updatedWord = dialogWord.replace(dialogWord, properNounAnswer);
+    const updatedDict = { ...wordsDictionary };
+
+    updatedDict[dialogWord] = runAgainstRules(properNounAnswer);
+
+    setWordsDictionary(updatedDict);
+    setIsDialogOpen(false);
+
+    // Process next word that needs dialog
+    const remainingWords = Object.keys(updatedDict).filter(
+      (word) => updatedDict[word] === ""
+    );
+
+    if (remainingWords.length > 0) {
+      const nextWord = remainingWords[0];
+      const needsDialog = /ch|qu|c|j/i.test(nextWord) || /[A-Z]/.test(nextWord);
+      if (needsDialog) {
+        setDialogWord(nextWord);
+        setIsDialogOpen(true);
+      }
+    }
+
+    // Finally, update the final output
+    const finalOutput = text
+      .trim()
+      .split(/\s+/)
+      .map((word) =>
+        updatedDict[word] !== "" ? updatedDict[word] : runAgainstRules(word)
+      )
+      .join(" ");
+    setTransliteratedText(finalOutput);
   };
 
   const handlePhoneticAnswerSelected = (selectedAnswer) => {
