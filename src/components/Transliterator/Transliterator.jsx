@@ -24,7 +24,7 @@ export default function Transliterator({ title }) {
   const [dialogWord, setDialogWord] = useState("");
   const [wordsDictionary, setWordsDictionary] = useState({});
 
-  const phoneticData = getPhoneticData(text);
+  const phoneticData = getPhoneticData(dialogWord);
   const textareaHasText = text.length > 0;
   let showDialog = null;
   let isBaybayin = title === "Baybayin";
@@ -62,6 +62,46 @@ export default function Transliterator({ title }) {
         .map((word) => initialDict[word])
         .join(" ")
     );
+  };
+
+  const handleSkip = () => {
+    const updatedDict = { ...wordsDictionary };
+    updatedDict[dialogWord] = runAgainstRules(dialogWord);
+
+    const remainingWords = Object.keys(updatedDict).filter(
+      (word) => updatedDict[word] === ""
+    );
+
+    let nextWord = null;
+
+    for (const word of remainingWords) {
+      const needsDialog = /ch|qu|c|j/i.test(word) || /[A-Z]/.test(word);
+      if (needsDialog) {
+        nextWord = word;
+        break;
+      } else {
+        updatedDict[word] = runAgainstRules(word);
+      }
+    }
+
+    setWordsDictionary(updatedDict);
+
+    if (nextWord) {
+      setDialogWord(nextWord);
+      setIsDialogOpen(true);
+    } else {
+      setIsDialogOpen(false);
+    }
+
+    // Update transliterated output
+    const finalOutput = text
+      .trim()
+      .split(/\s+/)
+      .map((word) =>
+        updatedDict[word] !== "" ? updatedDict[word] : runAgainstRules(word)
+      )
+      .join(" ");
+    setTransliteratedText(finalOutput);
   };
 
   function runAgainstRules(text) {
@@ -139,7 +179,9 @@ export default function Transliterator({ title }) {
     const finalOutput = text
       .trim()
       .split(/\s+/)
-      .map((word) => updatedDict[word])
+      .map((word) =>
+        updatedDict[word] !== "" ? updatedDict[word] : runAgainstRules(word)
+      )
       .join(" ");
     setTransliteratedText(finalOutput);
   };
@@ -153,6 +195,7 @@ export default function Transliterator({ title }) {
           enteredText={dialogWord}
           close={handleCloseDialog}
           onProperNounEntered={handleProperNounEntered}
+          onSkip={handleSkip}
         />
       );
     } else if (phoneticData) {
@@ -165,6 +208,7 @@ export default function Transliterator({ title }) {
           phoneticAnswerChar2={phoneticData.phoneticAnswer2}
           phoneticAnswerChar3={phoneticData.phoneticAnswer3 || null}
           onPhoneticAnswerSelected={handlePhoneticAnswerSelected}
+          onSkip={handleSkip}
         />
       );
     }

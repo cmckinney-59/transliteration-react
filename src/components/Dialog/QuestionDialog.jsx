@@ -6,6 +6,7 @@ export default function QuestionDialog({
   enteredText,
   onPhoneticAnswerSelected,
   onProperNounEntered,
+  onSkip,
   ...props
 }) {
   const wordIncludesCapital = /[A-Z]/.test(enteredText);
