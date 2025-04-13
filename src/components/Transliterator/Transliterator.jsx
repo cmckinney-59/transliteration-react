@@ -74,13 +74,12 @@ export default function Transliterator({ title }) {
 
     let nextWord = null;
 
-    for (const word of remainingWords) {
-      const needsDialog = /ch|qu|c|j/i.test(word) || /[A-Z]/.test(word);
+    for (const nextWord of remainingWords) {
+      const needsDialog = /ch|qu|c|j/i.test(nextWord) || /[A-Z]/.test(nextWord);
       if (needsDialog) {
-        nextWord = word;
-        break;
-      } else {
-        updatedDict[word] = runAgainstRules(word);
+        setDialogWord(nextWord);
+        setIsDialogOpen(true);
+        return; // Exit early once dialog is open
       }
     }
 
@@ -129,12 +128,12 @@ export default function Transliterator({ title }) {
       (word) => updatedDict[word] === ""
     );
 
-    if (remainingWords.length > 0) {
-      const nextWord = remainingWords[0];
+    for (const nextWord of remainingWords) {
       const needsDialog = /ch|qu|c|j/i.test(nextWord) || /[A-Z]/.test(nextWord);
       if (needsDialog) {
         setDialogWord(nextWord);
         setIsDialogOpen(true);
+        return;
       }
     }
 
@@ -166,12 +165,12 @@ export default function Transliterator({ title }) {
       (word) => updatedDict[word] === ""
     );
 
-    if (remainingWords.length > 0) {
-      const nextWord = remainingWords[0];
+    for (const nextWord of remainingWords) {
       const needsDialog = /ch|qu|c|j/i.test(nextWord) || /[A-Z]/.test(nextWord);
       if (needsDialog) {
         setDialogWord(nextWord);
         setIsDialogOpen(true);
+        return; // Exit early once dialog is open
       }
     }
 

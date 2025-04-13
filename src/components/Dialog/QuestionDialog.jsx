@@ -30,7 +30,7 @@ export default function QuestionDialog({
           />
         )}
 
-        <DialogNavButtons {...props} />
+        <DialogNavButtons onSkip={onSkip} {...props} />
       </div>
     </dialog>
   );
