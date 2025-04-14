@@ -25,6 +25,13 @@ function getPhoneticData(text) {
   }
 }
 
+function getNextDialogWord(dictionary) {
+  return Object.keys(dictionary).find(
+    (word) =>
+      dictionary[word] === "" && (/ch|qu|c|j/i.test(word) || /[A-Z]/.test(word))
+  );
+}
+
 export default function Transliterator({ title }) {
   const [text, setText] = useState("");
   const [transliteratedText, setTransliteratedText] = useState("");
@@ -76,19 +83,12 @@ export default function Transliterator({ title }) {
     const updatedDict = { ...wordsDictionary };
     updatedDict[dialogWord] = runAgainstRules(dialogWord);
 
-    const remainingWords = Object.keys(updatedDict).filter(
-      (word) => updatedDict[word] === ""
-    );
-
-    let nextWord = null;
-
-    for (const nextWord of remainingWords) {
-      const needsDialog = /ch|qu|c|j/i.test(nextWord) || /[A-Z]/.test(nextWord);
-      if (needsDialog) {
-        setDialogWord(nextWord);
-        setIsDialogOpen(true);
-        return; // Exit early once dialog is open
-      }
+    const nextWord = getNextDialogWord(updatedDict);
+    if (nextWord) {
+      setDialogWord(nextWord);
+      setIsDialogOpen(true);
+    } else {
+      setTransliteratedText(runAgainstRules(updatedDict));
     }
 
     setWordsDictionary(updatedDict);
@@ -131,18 +131,12 @@ export default function Transliterator({ title }) {
     setWordsDictionary(updatedDict);
     setIsDialogOpen(false);
 
-    // Process next word that needs dialog
-    const remainingWords = Object.keys(updatedDict).filter(
-      (word) => updatedDict[word] === ""
-    );
-
-    for (const nextWord of remainingWords) {
-      const needsDialog = /ch|qu|c|j/i.test(nextWord) || /[A-Z]/.test(nextWord);
-      if (needsDialog) {
-        setDialogWord(nextWord);
-        setIsDialogOpen(true);
-        return;
-      }
+    const nextWord = getNextDialogWord(updatedDict);
+    if (nextWord) {
+      setDialogWord(nextWord);
+      setIsDialogOpen(true);
+    } else {
+      setTransliteratedText(runAgainstRules(updatedDict));
     }
 
     // Finally, update the final output
@@ -168,18 +162,12 @@ export default function Transliterator({ title }) {
     setWordsDictionary(updatedDict);
     setIsDialogOpen(false);
 
-    // Process next word that needs dialog
-    const remainingWords = Object.keys(updatedDict).filter(
-      (word) => updatedDict[word] === ""
-    );
-
-    for (const nextWord of remainingWords) {
-      const needsDialog = /ch|qu|c|j/i.test(nextWord) || /[A-Z]/.test(nextWord);
-      if (needsDialog) {
-        setDialogWord(nextWord);
-        setIsDialogOpen(true);
-        return; // Exit early once dialog is open
-      }
+    const nextWord = getNextDialogWord(updatedDict);
+    if (nextWord) {
+      setDialogWord(nextWord);
+      setIsDialogOpen(true);
+    } else {
+      setTransliteratedText(runAgainstRules(updatedDict));
     }
 
     // Finally, update the final output
