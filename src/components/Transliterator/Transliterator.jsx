@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Transliterator.css";
 
 import TransliterateButton from "../Buttons/TransliterateButton";
@@ -38,6 +38,16 @@ export default function Transliterator({ title }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogWord, setDialogWord] = useState("");
   const [wordsDictionary, setWordsDictionary] = useState({});
+
+  useEffect(() => {
+    if (!isDialogOpen) {
+      const nextWord = getNextDialogWord(wordsDictionary);
+      if (nextWord) {
+        setDialogWord(nextWord);
+        setIsDialogOpen(true);
+      }
+    }
+  }, [isDialogOpen, wordsDictionary]);
 
   const phoneticData = getPhoneticData(dialogWord);
   const textareaHasText = text.length > 0;
