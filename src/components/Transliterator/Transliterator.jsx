@@ -7,14 +7,22 @@ import processBaybayinText from "../Utils/BaybayinTextProcessor";
 import { PHONETIC_LETTERS } from "../../phonetic-letters";
 
 function getPhoneticData(text) {
-  //TODO: Try making switch statement
-  if (/[A-Z]/.test(text)) return PHONETIC_LETTERS.none;
-  if (/ch/i.test(text)) return PHONETIC_LETTERS.CH;
-  if (/c/i.test(text) && !/ch/i.test(text)) return PHONETIC_LETTERS.C;
-  if (/qu/i.test(text)) return PHONETIC_LETTERS.QU;
-  if (/j/i.test(text)) return PHONETIC_LETTERS.J;
+  const lower = text.toLowerCase();
 
-  return PHONETIC_LETTERS.none;
+  switch (true) {
+    case /[A-Z]/.test(text):
+      return PHONETIC_LETTERS.none;
+    case lower.includes("ch"):
+      return PHONETIC_LETTERS.CH;
+    case lower.includes("qu"):
+      return PHONETIC_LETTERS.QU;
+    case lower.includes("c") && !lower.includes("ch"):
+      return PHONETIC_LETTERS.C;
+    case lower.includes("j"):
+      return PHONETIC_LETTERS.J;
+    default:
+      return PHONETIC_LETTERS.none;
+  }
 }
 
 export default function Transliterator({ title }) {
