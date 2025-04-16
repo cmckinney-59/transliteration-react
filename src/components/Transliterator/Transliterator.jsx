@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./Transliterator.css";
 
 import TransliterateButton from "../Buttons/TransliterateButton";
+import SaveAsButton from "../Buttons/SaveAsButton";
 import QuestionDialog from "../Dialog/QuestionDialog";
 import processBaybayinText from "../Utils/BaybayinTextProcessor";
 import { PHONETIC_LETTERS } from "../../phonetic-letters";
@@ -252,6 +253,9 @@ export default function Transliterator({ title }) {
           onClick={handleTransliterate}
           text={text}
         />
+      </div>
+      <div>
+        <SaveAsButton />
       </div>
       {showDialog}
     </div>
