@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, JSX } from "react";
 import "./Transliterator.css";
 
 import TransliterateButton from "../Buttons/TransliterateButton";
@@ -6,8 +6,22 @@ import SaveAsButton from "../Buttons/SaveAsButton";
 import QuestionDialog from "../Dialog/QuestionDialog";
 import processBaybayinText from "../Utils/BaybayinTextProcessor";
 import { PHONETIC_LETTERS } from "../../phonetic-letters";
+import React from "react";
 
-function getPhoneticData(text) {
+interface PhoneticData {
+  phoneticQuestion: string;
+  phoneticAnswer1: string;
+  phoneticAnswer2: string;
+  phoneticAnswer3?: string;
+}
+
+interface TransliteratorProps {
+  title: string;
+}
+
+type Dictionary = { [word: string]: string };
+
+function getPhoneticData(text: string): PhoneticData {
   const lower = text.toLowerCase();
 
   switch (true) {
@@ -26,19 +40,19 @@ function getPhoneticData(text) {
   }
 }
 
-function getNextDialogWord(dictionary) {
+function getNextDialogWord(dictionary: Dictionary): string | undefined {
   return Object.keys(dictionary).find(
     (word) =>
       dictionary[word] === "" && (/ch|qu|c|j/i.test(word) || /[A-Z]/.test(word))
   );
 }
 
-export default function Transliterator({ title }) {
-  const [text, setText] = useState("");
-  const [transliteratedText, setTransliteratedText] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [dialogWord, setDialogWord] = useState("");
-  const [wordsDictionary, setWordsDictionary] = useState({});
+export default function Transliterator({ title }: TransliteratorProps) {
+  const [text, setText] = useState<string>("");
+  const [transliteratedText, setTransliteratedText] = useState<string>("");
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [dialogWord, setDialogWord] = useState<string>("");
+  const [wordsDictionary, setWordsDictionary] = useState<Dictionary>({});
 
   useEffect(() => {
     if (!isDialogOpen) {
@@ -52,16 +66,19 @@ export default function Transliterator({ title }) {
 
   const phoneticData = getPhoneticData(dialogWord);
   const textareaHasText = text.length > 0;
-  let showDialog = null;
-  let isBaybayin = title === "Baybayin";
-  let isAurebesh = title === "Aurebesh";
-  let isDeseret = title === "Deseret";
+  const isBaybayin = title === "Baybayin";
+  const isAurebesh = title === "Aurebesh";
+  const isDeseret = title === "Deseret";
 
-  const handleTransliterate = () => {
-    const initialDict = text
+  const runAgainstRules = (text: string): string => {
+    return isBaybayin ? processBaybayinText(text) : text;
+  };
+
+  const handleTransliterate = (): void => {
+    const initialDict: Dictionary = text
       .trim()
       .split(/\s+/)
-      .reduce((dict, word) => {
+      .reduce((dict: Dictionary, word: string) => {
         dict[word] = "";
         return dict;
       }, {});
@@ -74,7 +91,7 @@ export default function Transliterator({ title }) {
       if (needsDialog) {
         setDialogWord(word);
         setIsDialogOpen(true);
-        break; // Stop and wait for dialog before continuing
+        break;
       } else {
         const result = runAgainstRules(word);
         initialDict[word] = result;
@@ -90,20 +107,13 @@ export default function Transliterator({ title }) {
     );
   };
 
-  const handleSkip = () => {
+  const handleSkip = (): void => {
     const updatedDict = { ...wordsDictionary };
     updatedDict[dialogWord] = runAgainstRules(dialogWord);
 
-    const nextWord = getNextDialogWord(updatedDict);
-    if (nextWord) {
-      setDialogWord(nextWord);
-      setIsDialogOpen(true);
-    } else {
-      setTransliteratedText(runAgainstRules(updatedDict));
-    }
-
     setWordsDictionary(updatedDict);
 
+    const nextWord = getNextDialogWord(updatedDict);
     if (nextWord) {
       setDialogWord(nextWord);
       setIsDialogOpen(true);
@@ -111,7 +121,6 @@ export default function Transliterator({ title }) {
       setIsDialogOpen(false);
     }
 
-    // Update transliterated output
     const finalOutput = text
       .trim()
       .split(/\s+/)
@@ -122,21 +131,12 @@ export default function Transliterator({ title }) {
     setTransliteratedText(finalOutput);
   };
 
-  function runAgainstRules(text) {
-    if (isBaybayin) {
-      return processBaybayinText(text);
-    } else {
-      return text;
-    }
-  }
-
-  const handleCloseDialog = () => {
+  const handleCloseDialog = (): void => {
     setIsDialogOpen(false);
   };
 
-  const handleProperNounEntered = (properNounAnswer) => {
+  const handleProperNounEntered = (properNounAnswer: string): void => {
     const updatedDict = { ...wordsDictionary };
-
     updatedDict[dialogWord] = runAgainstRules(properNounAnswer);
 
     setWordsDictionary(updatedDict);
@@ -146,11 +146,8 @@ export default function Transliterator({ title }) {
     if (nextWord) {
       setDialogWord(nextWord);
       setIsDialogOpen(true);
-    } else {
-      setTransliteratedText(runAgainstRules(updatedDict));
     }
 
-    // Finally, update the final output
     const finalOutput = text
       .trim()
       .split(/\s+/)
@@ -161,7 +158,7 @@ export default function Transliterator({ title }) {
     setTransliteratedText(finalOutput);
   };
 
-  const handlePhoneticAnswerSelected = (selectedAnswer) => {
+  const handlePhoneticAnswerSelected = (selectedAnswer: string): void => {
     const updatedWord = dialogWord.replace(
       new RegExp(phoneticData.phoneticQuestion, "gi"),
       selectedAnswer
@@ -177,11 +174,8 @@ export default function Transliterator({ title }) {
     if (nextWord) {
       setDialogWord(nextWord);
       setIsDialogOpen(true);
-    } else {
-      setTransliteratedText(runAgainstRules(updatedDict));
     }
 
-    // Finally, update the final output
     const finalOutput = text
       .trim()
       .split(/\s+/)
@@ -192,7 +186,7 @@ export default function Transliterator({ title }) {
     setTransliteratedText(finalOutput);
   };
 
-  // Shows the dialog asking the user questions about phonetics
+  let showDialog: JSX.Element | null = null;
   if (isDialogOpen) {
     const wordIncludesCapital = /[A-Z]/.test(dialogWord);
     if (wordIncludesCapital) {
@@ -212,7 +206,7 @@ export default function Transliterator({ title }) {
           phoneticQuestionChar={phoneticData.phoneticQuestion}
           phoneticAnswerChar1={phoneticData.phoneticAnswer1}
           phoneticAnswerChar2={phoneticData.phoneticAnswer2}
-          phoneticAnswerChar3={phoneticData.phoneticAnswer3 || null}
+          phoneticAnswerChar3={phoneticData.phoneticAnswer3 ?? null}
           onPhoneticAnswerSelected={handlePhoneticAnswerSelected}
           onSkip={handleSkip}
         />
