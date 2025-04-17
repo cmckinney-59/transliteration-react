@@ -12,6 +12,7 @@ export default function saveAsButton({ handleClick }) {
           </option>
         ))}
       </select>
+      <button>Save</button>
     </section>
   );
 }
