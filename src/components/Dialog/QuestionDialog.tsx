@@ -1,6 +1,19 @@
+import React from "react";
 import DialogNavButtons from "./DialogNavButtons";
 import PhoneticCharactersQuestion from "./PhoneticCharictersQuestion";
 import ProperNownQuestion from "./ProperNounQuestion";
+
+interface QuestionDialogProps {
+  enteredText: string;
+  onPhoneticAnswerSelected?: (answer: string) => void;
+  onProperNounEntered?: (answer: string) => void;
+  onSkip: () => void;
+  close: () => void;
+  phoneticQuestionChar?: string;
+  phoneticAnswerChar1?: string;
+  phoneticAnswerChar2?: string;
+  phoneticAnswerChar3?: string | null;
+}
 
 export default function QuestionDialog({
   enteredText,
@@ -8,7 +21,7 @@ export default function QuestionDialog({
   onProperNounEntered,
   onSkip,
   ...props
-}) {
+}: QuestionDialogProps) {
   const wordIncludesCapital = /[A-Z]/.test(enteredText);
 
   return (
