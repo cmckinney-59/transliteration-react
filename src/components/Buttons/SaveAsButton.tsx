@@ -4,7 +4,7 @@ interface SaveAsButtonProps {
   handleClick: () => void;
 }
 
-export default function saveAsButton({ handleClick }): SaveAsButtonProps {
+export default function SaveAsButton({ handleClick }): SaveAsButtonProps {
   const fileTypes = ["Word", "Text", "Excel"];
 
   return (

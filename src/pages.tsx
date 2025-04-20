@@ -1,4 +1,4 @@
-import homeImg from "./assets/images/home.jpg";
+import homeImg from "../assets/images/home.jpg";
 import inasalImg from "./assets/images/inasal.png";
 import theBoisImg from "./assets/images/thebois.webp";
 import beeImg from "./assets/images/deseretBee.jpg";
