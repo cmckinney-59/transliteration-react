@@ -3,7 +3,14 @@ import inasalImg from "./assets/images/inasal.png";
 import theBoisImg from "./assets/images/thebois.webp";
 import beeImg from "./assets/images/deseretBee.jpg";
 
-export const PAGES = {
+interface PageData {
+  image: string;
+  title: string;
+  description: string;
+  whatIs?: string;
+}
+
+export const PAGES: Record<string, PageData> = {
   Home: {
     image: homeImg,
     title: "Home",
