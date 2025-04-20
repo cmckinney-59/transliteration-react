@@ -10,7 +10,7 @@ export default function saveAsButton({ handleClick }): SaveAsButtonProps {
   return (
     <>
       <div>
-        <button>Download</button>
+        <button onClick={handleClick}>Download</button>
         <div>
           <a>Word</a>
           <a>Text</a>
