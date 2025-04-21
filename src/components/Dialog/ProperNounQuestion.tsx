@@ -1,18 +1,23 @@
-import { useState } from "react";
-import YesNoQuestion from "./YesNoQuestion";
+import React, { useState } from "react";
+
+interface ProperNownQuestionProps {
+  enteredText: string;
+  onEnterProperNounAnswer: (answer: string) => void;
+  next: () => void;
+}
 
 export default function ProperNownQuestion({
   enteredText,
   onEnterProperNounAnswer,
   next,
-}) {
-  const [isProperNoun, setIsProperNoun] = useState(false);
-  const [isNotPhonetic, setIsNotPhonetic] = useState(false);
-  const [answer, setAnswer] = useState("");
+}: ProperNownQuestionProps) {
+  const [isProperNoun, setIsProperNoun] = useState<boolean>(false);
+  const [isNotPhonetic, setIsNotPhonetic] = useState<boolean>(false);
+  const [answer, setAnswer] = useState<string>("");
 
-  let showProperNounQuestion = null;
-  let showPhoneticQuestion = null;
-  let showEnterPhoneticWord = null;
+  let showProperNounQuestion: JSX.Element | null = null;
+  let showPhoneticQuestion: JSX.Element | null = null;
+  let showEnterPhoneticWord: JSX.Element | null = null;
 
   const handleIsProperNoun = () => {
     setIsProperNoun(true);
@@ -39,7 +44,7 @@ export default function ProperNownQuestion({
       <>
         <p>Is "{enteredText}" spelled phonetically?</p>
         <div>
-          <button onClick={handleIsProperNoun}>Yes</button>
+          <button onClick={next}>Yes</button>
           <button onClick={handleIsNotPhonetic}>No</button>
         </div>
       </>
@@ -53,7 +58,9 @@ export default function ProperNownQuestion({
         <input
           type="text"
           value={answer}
-          onChange={(e) => setAnswer(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setAnswer(e.target.value)
+          }
         />
         <button onClick={() => onEnterProperNounAnswer(answer)}>Replace</button>
       </div>
