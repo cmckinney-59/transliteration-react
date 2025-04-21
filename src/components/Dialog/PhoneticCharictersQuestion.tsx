@@ -1,3 +1,14 @@
+import React from "react";
+
+interface PhoneticCharactersQuestionProps {
+  enteredText: string;
+  phoneticQuestionChar: string;
+  phoneticAnswerChar1: string;
+  phoneticAnswerChar2: string;
+  phoneticAnswerChar3?: string; // optional
+  onSelectPhoneticAnswer: (answer: string) => void;
+}
+
 export default function PhoneticCharactersQuestion({
   enteredText,
   phoneticQuestionChar,
@@ -5,12 +16,12 @@ export default function PhoneticCharactersQuestion({
   phoneticAnswerChar2,
   phoneticAnswerChar3,
   onSelectPhoneticAnswer,
-}) {
+}: PhoneticCharactersQuestionProps) {
   const phoneticAnswers = [
     phoneticAnswerChar1,
     phoneticAnswerChar2,
     phoneticAnswerChar3,
-  ].reduce((acc, answer) => {
+  ].reduce<JSX.Element[]>((acc, answer) => {
     if (answer) {
       acc.push(
         <button key={answer} onClick={() => onSelectPhoneticAnswer(answer)}>
