@@ -1,8 +1,9 @@
-import logo from '../../assets/images/logo.png';
-import './Header.css';
+import React from "react";
+import logo from "../../assets/images/logo.png";
+import "./Header.css";
 
-export default function Header() {
-  return (  
+export default function Header(): JSX.Element {
+  return (
     <header className="App-header">
       <div className="header-content">
         <img src={logo} className="App-logo" alt="logo" />
