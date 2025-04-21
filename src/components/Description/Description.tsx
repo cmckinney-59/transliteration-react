@@ -3,7 +3,7 @@ import React from "react";
 interface DescriptionProps {
   image: string;
   description: string;
-  whatIs: string;
+  whatIs?: string;
 }
 
 export default function Description({

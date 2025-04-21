@@ -135,6 +135,10 @@ export default function Transliterator({ title }: TransliteratorProps) {
     setIsDialogOpen(false);
   };
 
+  const handleSave = (): void => {
+    console.log("save clicked");
+  };
+
   const handleProperNounEntered = (properNounAnswer: string): void => {
     const updatedDict = { ...wordsDictionary };
     updatedDict[dialogWord] = runAgainstRules(properNounAnswer);
@@ -196,6 +200,15 @@ export default function Transliterator({ title }: TransliteratorProps) {
           close={handleCloseDialog}
           onProperNounEntered={handleProperNounEntered}
           onSkip={handleSkip}
+          onPhoneticAnswerSelected={function (answer: string): void {
+            throw new Error("Function not implemented.");
+          }}
+          next={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+          phoneticQuestionChar={""}
+          phoneticAnswerChar1={""}
+          phoneticAnswerChar2={""}
         />
       );
     } else if (phoneticData) {
@@ -209,6 +222,12 @@ export default function Transliterator({ title }: TransliteratorProps) {
           phoneticAnswerChar3={phoneticData.phoneticAnswer3 ?? null}
           onPhoneticAnswerSelected={handlePhoneticAnswerSelected}
           onSkip={handleSkip}
+          onProperNounEntered={function (answer: string): void {
+            throw new Error("Function not implemented.");
+          }}
+          next={function (): void {
+            throw new Error("Function not implemented.");
+          }}
         />
       );
     }
@@ -249,7 +268,7 @@ export default function Transliterator({ title }: TransliteratorProps) {
         />
       </div>
       <div>
-        <SaveAsButton />
+        <SaveAsButton handleClick={handleSave} />
       </div>
       {showDialog}
     </div>

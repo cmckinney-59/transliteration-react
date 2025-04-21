@@ -1,10 +1,12 @@
-import React from "react";
+import React, { JSX } from "react";
 
 interface SaveAsButtonProps {
   handleClick: () => void;
 }
 
-export default function SaveAsButton({ handleClick }): SaveAsButtonProps {
+export default function SaveAsButton({
+  handleClick,
+}: SaveAsButtonProps): JSX.Element {
   const fileTypes = ["Word", "Text", "Excel"];
 
   return (

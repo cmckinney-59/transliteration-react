@@ -1,11 +1,11 @@
-import React from "react";
+import React, { JSX } from "react";
 
 interface PhoneticCharactersQuestionProps {
   enteredText: string;
   phoneticQuestionChar: string;
   phoneticAnswerChar1: string;
   phoneticAnswerChar2: string;
-  phoneticAnswerChar3?: string; // optional
+  phoneticAnswerChar3?: string | null;
   onSelectPhoneticAnswer: (answer: string) => void;
 }
 

@@ -5,13 +5,14 @@ import ProperNownQuestion from "./ProperNounQuestion";
 
 interface QuestionDialogProps {
   enteredText: string;
-  onPhoneticAnswerSelected?: (answer: string) => void;
-  onProperNounEntered?: (answer: string) => void;
+  onPhoneticAnswerSelected: (answer: string) => void;
+  onProperNounEntered: (answer: string) => void;
   onSkip: () => void;
   close: () => void;
-  phoneticQuestionChar?: string;
-  phoneticAnswerChar1?: string;
-  phoneticAnswerChar2?: string;
+  next: () => void;
+  phoneticQuestionChar: string;
+  phoneticAnswerChar1: string;
+  phoneticAnswerChar2: string;
   phoneticAnswerChar3?: string | null;
 }
 
@@ -20,6 +21,11 @@ export default function QuestionDialog({
   onPhoneticAnswerSelected,
   onProperNounEntered,
   onSkip,
+  next,
+  phoneticQuestionChar,
+  phoneticAnswerChar1,
+  phoneticAnswerChar2,
+  phoneticAnswerChar3,
   ...props
 }: QuestionDialogProps) {
   const wordIncludesCapital = /[A-Z]/.test(enteredText);
@@ -33,12 +39,17 @@ export default function QuestionDialog({
           <ProperNownQuestion
             enteredText={enteredText}
             onEnterProperNounAnswer={onProperNounEntered}
+            next={next}
             {...props}
           />
         ) : (
           <PhoneticCharactersQuestion
             enteredText={enteredText}
             onSelectPhoneticAnswer={onPhoneticAnswerSelected}
+            phoneticQuestionChar={phoneticQuestionChar}
+            phoneticAnswerChar1={phoneticAnswerChar1}
+            phoneticAnswerChar2={phoneticAnswerChar2}
+            phoneticAnswerChar3={phoneticAnswerChar3}
             {...props}
           />
         )}

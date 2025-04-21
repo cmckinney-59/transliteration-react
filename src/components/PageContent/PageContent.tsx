@@ -1,4 +1,4 @@
-import React from "react";
+import React, { JSX } from "react";
 import "./PageContent.css";
 
 import Transliterator from "../Transliterator/Transliterator.js";
