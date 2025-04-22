@@ -1,9 +1,9 @@
 import React, { JSX } from "react";
 import "./PageContent.css";
 
-import Transliterator from "../Transliterator/Transliterator.js";
-import Description from "../Description/Description.js";
-import { PAGES } from "../../pages.js";
+import Transliterator from "../Transliterator/Transliterator.tsx";
+import Description from "../Description/Description.tsx";
+import { PAGES } from "../../pages.tsx";
 
 interface PageContentProps {
   selectedPage: string;

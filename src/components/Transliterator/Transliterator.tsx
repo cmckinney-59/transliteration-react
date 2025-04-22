@@ -1,11 +1,11 @@
 import { useState, useEffect, JSX } from "react";
 import "./Transliterator.css";
 
-import TransliterateButton from "../Buttons/TransliterateButton";
-import SaveAsButton from "../Buttons/SaveAsButton";
-import QuestionDialog from "../Dialog/QuestionDialog";
-import processBaybayinText from "../Utils/BaybayinTextProcessor";
-import { PHONETIC_LETTERS } from "../../phonetic-letters";
+import TransliterateButton from "../Buttons/TransliterateButton.tsx";
+import SaveAsButton from "../Buttons/SaveAsButton.tsx";
+import QuestionDialog from "../Dialog/QuestionDialog.tsx";
+import processBaybayinText from "../Utils/BaybayinTextProcessor.ts";
+import { PHONETIC_LETTERS } from "../../phonetic-letters.tsx";
 import React from "react";
 
 interface PhoneticData {

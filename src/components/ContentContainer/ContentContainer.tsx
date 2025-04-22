@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent } from "react";
 
 import "./ContentContainer.css";
-import PageContent from "../PageContent/PageContent.jsx";
-import AlphabetPicker from "../AlphabetPicker/AlphabetPicker.js";
+import PageContent from "../PageContent/PageContent.tsx";
+import AlphabetPicker from "../AlphabetPicker/AlphabetPicker.tsx";
 
 export default function ContentContainer() {
   const [selectedPage, setSelectedPage] = useState<string>("Home");

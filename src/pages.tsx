@@ -1,7 +1,7 @@
-import homeImg from "../assets/images/home.jpg";
-import inasalImg from "./assets/images/inasal.png";
-import theBoisImg from "./assets/images/thebois.webp";
-import beeImg from "./assets/images/deseretBee.jpg";
+import homeImg from "../src/assets/images/home.jpg";
+import inasalImg from "../src/assets/images/inasal.png";
+import theBoisImg from "../src/assets/images/thebois.webp";
+import beeImg from "../src/assets/images/deseretBee.jpg";
 
 interface PageData {
   image: string;
