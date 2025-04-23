@@ -51,18 +51,24 @@ export default function Transliterator({ title }: TransliteratorProps) {
   const [text, setText] = useState<string>("");
   const [transliteratedText, setTransliteratedText] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [isManuallyClosed, setIsManuallyClosed] = useState(false);
   const [dialogWord, setDialogWord] = useState<string>("");
   const [wordsDictionary, setWordsDictionary] = useState<Dictionary>({});
 
   useEffect(() => {
+    const nextWord = getNextDialogWord(wordsDictionary);
+
     if (!isDialogOpen) {
-      const nextWord = getNextDialogWord(wordsDictionary);
-      if (nextWord) {
+      if (!isManuallyClosed && nextWord) {
         setDialogWord(nextWord);
         setIsDialogOpen(true);
       }
+
+      if (isManuallyClosed && !nextWord) {
+        setIsManuallyClosed(false);
+      }
     }
-  }, [isDialogOpen, wordsDictionary]);
+  }, [isDialogOpen, wordsDictionary, isManuallyClosed]);
 
   const phoneticData = getPhoneticData(dialogWord);
   const textareaHasText = text.length > 0;
@@ -132,6 +138,7 @@ export default function Transliterator({ title }: TransliteratorProps) {
   };
 
   const handleCloseDialog = (): void => {
+    setIsManuallyClosed(true);
     setIsDialogOpen(false);
   };
 
