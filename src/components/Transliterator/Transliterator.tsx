@@ -210,9 +210,6 @@ export default function Transliterator({ title }: TransliteratorProps) {
           onPhoneticAnswerSelected={function (answer: string): void {
             throw new Error("Function not implemented.");
           }}
-          next={function (): void {
-            throw new Error("Function not implemented.");
-          }}
           phoneticQuestionChar={""}
           phoneticAnswerChar1={""}
           phoneticAnswerChar2={""}
@@ -230,9 +227,6 @@ export default function Transliterator({ title }: TransliteratorProps) {
           onPhoneticAnswerSelected={handlePhoneticAnswerSelected}
           onSkip={handleSkip}
           onProperNounEntered={function (answer: string): void {
-            throw new Error("Function not implemented.");
-          }}
-          next={function (): void {
             throw new Error("Function not implemented.");
           }}
         />

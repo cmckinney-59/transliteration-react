@@ -9,7 +9,6 @@ interface QuestionDialogProps {
   onProperNounEntered: (answer: string) => void;
   onSkip: () => void;
   close: () => void;
-  next: () => void;
   phoneticQuestionChar: string;
   phoneticAnswerChar1: string;
   phoneticAnswerChar2: string;
@@ -21,7 +20,6 @@ export default function QuestionDialog({
   onPhoneticAnswerSelected,
   onProperNounEntered,
   onSkip,
-  next,
   phoneticQuestionChar,
   phoneticAnswerChar1,
   phoneticAnswerChar2,
@@ -39,7 +37,7 @@ export default function QuestionDialog({
           <ProperNownQuestion
             enteredText={enteredText}
             onEnterProperNounAnswer={onProperNounEntered}
-            next={next}
+            onSkip={onSkip}
             {...props}
           />
         ) : (

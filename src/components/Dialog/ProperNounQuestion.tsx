@@ -3,13 +3,13 @@ import React, { useState, JSX } from "react";
 interface ProperNownQuestionProps {
   enteredText: string;
   onEnterProperNounAnswer: (answer: string) => void;
-  next: () => void;
+  onSkip: () => void;
 }
 
 export default function ProperNownQuestion({
   enteredText,
   onEnterProperNounAnswer,
-  next,
+  onSkip,
 }: ProperNownQuestionProps) {
   const [isProperNoun, setIsProperNoun] = useState<boolean>(false);
   const [isNotPhonetic, setIsNotPhonetic] = useState<boolean>(false);
@@ -33,7 +33,7 @@ export default function ProperNownQuestion({
         <p>Is "{enteredText}" a proper noun?</p>
         <div>
           <button onClick={handleIsProperNoun}>Yes</button>
-          <button onClick={next}>No</button>
+          <button onClick={onSkip}>No</button>
         </div>
       </>
     );
@@ -44,7 +44,7 @@ export default function ProperNownQuestion({
       <>
         <p>Is "{enteredText}" spelled phonetically?</p>
         <div>
-          <button onClick={next}>Yes</button>
+          <button onClick={onSkip}>Yes</button>
           <button onClick={handleIsNotPhonetic}>No</button>
         </div>
       </>
