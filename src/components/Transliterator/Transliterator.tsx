@@ -7,6 +7,7 @@ import QuestionDialog from "../Dialog/QuestionDialog.tsx";
 import processBaybayinText from "../Utils/BaybayinTextProcessor.ts";
 import { PHONETIC_LETTERS } from "../../phonetic-letters.tsx";
 import React from "react";
+import ProperNounQuestion from "../Dialog/ProperNounQuestion.tsx";
 
 interface PhoneticData {
   phoneticQuestion: string;
@@ -54,6 +55,9 @@ export default function Transliterator({ title }: TransliteratorProps) {
   const [isManuallyClosed, setIsManuallyClosed] = useState(false);
   const [dialogWord, setDialogWord] = useState<string>("");
   const [wordsDictionary, setWordsDictionary] = useState<Dictionary>({});
+  const [questionStage, setQuestionStage] = useState<
+    "properNoun" | "isPhoneticallySpelled" | "enterPhoneticSpelling"
+  >("properNoun");
 
   useEffect(() => {
     const nextWord = getNextDialogWord(wordsDictionary);
@@ -62,6 +66,7 @@ export default function Transliterator({ title }: TransliteratorProps) {
       if (!isManuallyClosed && nextWord) {
         setDialogWord(nextWord);
         setIsDialogOpen(true);
+        setQuestionStage("properNoun");
       }
 
       if (isManuallyClosed && !nextWord) {
@@ -199,23 +204,53 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
   let showDialog: JSX.Element | null = null;
   if (isDialogOpen) {
-    const wordIncludesCapital = /[A-Z]/.test(dialogWord);
-    if (wordIncludesCapital) {
-      showDialog = (
-        <QuestionDialog
-          enteredText={dialogWord}
-          close={handleCloseDialog}
-          onProperNounEntered={handleProperNounEntered}
-          onSkip={handleSkip}
-          onPhoneticAnswerSelected={function (answer: string): void {
-            throw new Error("Function not implemented.");
-          }}
-          phoneticQuestionChar={""}
-          phoneticAnswerChar1={""}
-          phoneticAnswerChar2={""}
-        />
-      );
+    if (/[A-Z]/.test(dialogWord)) {
+      switch (questionStage) {
+        case "properNoun":
+          showDialog = (
+            <ProperNounQuestion
+              word={dialogWord}
+              onYes={() => setQuestionStage("isPhoneticallySpelled")}
+              onNo={() => handleSkip()}
+            />
+          );
+          break;
+        case "isPhoneticallySpelled":
+          showDialog = (
+            <ProperNounQuestion
+              word={`Is "${dialogWord}" spelled phonetically?`}
+              onYes={() => {
+                const updatedDict = { ...wordsDictionary };
+                updatedDict[dialogWord] = runAgainstRules(dialogWord);
+                setWordsDictionary(updatedDict);
+                setIsDialogOpen(false);
+              }}
+              onNo={() => setQuestionStage("enterPhoneticSpelling")}
+            />
+          );
+          break;
+        case "enterPhoneticSpelling":
+          showDialog = (
+            <QuestionDialog
+              enteredText={dialogWord}
+              close={handleCloseDialog}
+              onProperNounEntered={(answer) => {
+                handleProperNounEntered(answer);
+                setQuestionStage("properNoun"); // reset for next word
+              }}
+              onSkip={handleSkip}
+              onPhoneticAnswerSelected={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+              phoneticQuestionChar={""}
+              phoneticAnswerChar1={""}
+              phoneticAnswerChar2={""}
+            />
+          );
+          break;
+      }
     } else if (phoneticData) {
+      // For CH, QU, etc.
       showDialog = (
         <QuestionDialog
           enteredText={dialogWord}
