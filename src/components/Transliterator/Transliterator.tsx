@@ -241,45 +241,45 @@ export default function Transliterator({ title }: TransliteratorProps) {
       />
     );
   }
-}
 
-return (
-  <div>
-    <h2>{title} Transliterator</h2>
-    <div className="transliteration-container">
-      <textarea
-        className="transliteration-textarea"
-        placeholder="Enter text to be transliterated here..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      ></textarea>
-      <p
-        className={`transliteration-output ${
-          textareaHasText
-            ? isBaybayin
-              ? "baybayin-font"
-              : isAurebesh
-              ? "aurebesh-font"
-              : isDeseret
-              ? "deseret-font"
+  return (
+    <div>
+      <h2>{title} Transliterator</h2>
+      <div className="transliteration-container">
+        <textarea
+          className="transliteration-textarea"
+          placeholder="Enter text to be transliterated here..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        ></textarea>
+        <p
+          className={`transliteration-output ${
+            textareaHasText
+              ? isBaybayin
+                ? "baybayin-font"
+                : isAurebesh
+                ? "aurebesh-font"
+                : isDeseret
+                ? "deseret-font"
+                : ""
               : ""
-            : ""
-        }`}
-      >
-        {transliteratedText || "Transliterated text..."}
-      </p>
+          }`}
+        >
+          {transliteratedText || "Transliterated text..."}
+        </p>
+      </div>
+      <p>{transliteratedText}</p>
+      <div>
+        <TransliterateButton
+          isActive={textareaHasText}
+          onClick={handleTransliterate}
+          text={text}
+        />
+      </div>
+      <div>
+        <SaveAsButton handleClick={handleSave} />
+      </div>
+      {showDialog}
     </div>
-    <p>{transliteratedText}</p>
-    <div>
-      <TransliterateButton
-        isActive={textareaHasText}
-        onClick={handleTransliterate}
-        text={text}
-      />
-    </div>
-    <div>
-      <SaveAsButton handleClick={handleSave} />
-    </div>
-    {showDialog}
-  </div>
-);
+  );
+}
