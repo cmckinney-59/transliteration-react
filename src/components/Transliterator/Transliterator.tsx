@@ -205,108 +205,81 @@ export default function Transliterator({ title }: TransliteratorProps) {
   let showDialog: JSX.Element | null = null;
   if (isDialogOpen) {
     if (/[A-Z]/.test(dialogWord)) {
-      switch (questionStage) {
-        case "properNoun":
-          showDialog = (
-            <ProperNounQuestion
-              word={dialogWord}
-              onYes={() => setQuestionStage("isPhoneticallySpelled")}
-              onNo={() => handleSkip()}
-            />
-          );
-          break;
-        case "isPhoneticallySpelled":
-          showDialog = (
-            <ProperNounQuestion
-              word={`Is "${dialogWord}" spelled phonetically?`}
-              onYes={() => {
-                const updatedDict = { ...wordsDictionary };
-                updatedDict[dialogWord] = runAgainstRules(dialogWord);
-                setWordsDictionary(updatedDict);
-                setIsDialogOpen(false);
-              }}
-              onNo={() => setQuestionStage("enterPhoneticSpelling")}
-            />
-          );
-          break;
-        case "enterPhoneticSpelling":
-          showDialog = (
-            <QuestionDialog
-              enteredText={dialogWord}
-              close={handleCloseDialog}
-              onProperNounEntered={(answer) => {
-                handleProperNounEntered(answer);
-                setQuestionStage("properNoun"); // reset for next word
-              }}
-              onSkip={handleSkip}
-              onPhoneticAnswerSelected={function (): void {
-                throw new Error("Function not implemented.");
-              }}
-              phoneticQuestionChar={""}
-              phoneticAnswerChar1={""}
-              phoneticAnswerChar2={""}
-            />
-          );
-          break;
-      }
-    } else if (phoneticData) {
-      // For CH, QU, etc.
       showDialog = (
         <QuestionDialog
           enteredText={dialogWord}
           close={handleCloseDialog}
-          phoneticQuestionChar={phoneticData.phoneticQuestion}
-          phoneticAnswerChar1={phoneticData.phoneticAnswer1}
-          phoneticAnswerChar2={phoneticData.phoneticAnswer2}
-          phoneticAnswerChar3={phoneticData.phoneticAnswer3 ?? null}
-          onPhoneticAnswerSelected={handlePhoneticAnswerSelected}
+          onProperNounEntered={(answer) => {
+            handleProperNounEntered(answer);
+            setQuestionStage("properNoun"); // reset for next word
+          }}
           onSkip={handleSkip}
-          onProperNounEntered={function (answer: string): void {
+          onPhoneticAnswerSelected={function (): void {
             throw new Error("Function not implemented.");
           }}
+          phoneticQuestionChar={""}
+          phoneticAnswerChar1={""}
+          phoneticAnswerChar2={""}
         />
       );
     }
+  } else if (phoneticData) {
+    // For CH, QU, etc.
+    showDialog = (
+      <QuestionDialog
+        enteredText={dialogWord}
+        close={handleCloseDialog}
+        phoneticQuestionChar={phoneticData.phoneticQuestion}
+        phoneticAnswerChar1={phoneticData.phoneticAnswer1}
+        phoneticAnswerChar2={phoneticData.phoneticAnswer2}
+        phoneticAnswerChar3={phoneticData.phoneticAnswer3 ?? null}
+        onPhoneticAnswerSelected={handlePhoneticAnswerSelected}
+        onSkip={handleSkip}
+        onProperNounEntered={function (answer: string): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
   }
-
-  return (
-    <div>
-      <h2>{title} Transliterator</h2>
-      <div className="transliteration-container">
-        <textarea
-          className="transliteration-textarea"
-          placeholder="Enter text to be transliterated here..."
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        ></textarea>
-        <p
-          className={`transliteration-output ${
-            textareaHasText
-              ? isBaybayin
-                ? "baybayin-font"
-                : isAurebesh
-                ? "aurebesh-font"
-                : isDeseret
-                ? "deseret-font"
-                : ""
-              : ""
-          }`}
-        >
-          {transliteratedText || "Transliterated text..."}
-        </p>
-      </div>
-      <p>{transliteratedText}</p>
-      <div>
-        <TransliterateButton
-          isActive={textareaHasText}
-          onClick={handleTransliterate}
-          text={text}
-        />
-      </div>
-      <div>
-        <SaveAsButton handleClick={handleSave} />
-      </div>
-      {showDialog}
-    </div>
-  );
 }
+
+return (
+  <div>
+    <h2>{title} Transliterator</h2>
+    <div className="transliteration-container">
+      <textarea
+        className="transliteration-textarea"
+        placeholder="Enter text to be transliterated here..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      ></textarea>
+      <p
+        className={`transliteration-output ${
+          textareaHasText
+            ? isBaybayin
+              ? "baybayin-font"
+              : isAurebesh
+              ? "aurebesh-font"
+              : isDeseret
+              ? "deseret-font"
+              : ""
+            : ""
+        }`}
+      >
+        {transliteratedText || "Transliterated text..."}
+      </p>
+    </div>
+    <p>{transliteratedText}</p>
+    <div>
+      <TransliterateButton
+        isActive={textareaHasText}
+        onClick={handleTransliterate}
+        text={text}
+      />
+    </div>
+    <div>
+      <SaveAsButton handleClick={handleSave} />
+    </div>
+    {showDialog}
+  </div>
+);
