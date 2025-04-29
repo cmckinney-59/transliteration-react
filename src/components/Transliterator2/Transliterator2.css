@@ -1,0 +1,10 @@
+.transliteration-input {
+    font-size: 20px;     
+    border: 2px solid #000;      
+    padding-left: 15px;      
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    min-height: 100px;
+    background-color: #f9f9f9;
+  }
