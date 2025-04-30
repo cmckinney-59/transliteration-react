@@ -3,6 +3,7 @@ import "./Transliterator2.css";
 
 import TransliterateButton from "../Buttons/TransliterateButton.tsx";
 import React from "react";
+import StartReviewDialog from "../Dialog/StartReviewDialog.tsx";
 
 interface TransliteratorProps {
   title: string;
@@ -16,8 +17,12 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
   let showDialog: JSX.Element | null = null;
   if (isDialogOpen) {
-    showDialog = <div>dialog</div>;
+    showDialog = <StartReviewDialog />;
   }
+
+  const handleTransliterateButtonClick = (): void => {
+    setIsDialogOpen(true);
+  };
 
   return (
     <div>
@@ -34,9 +39,7 @@ export default function Transliterator({ title }: TransliteratorProps) {
         <TransliterateButton
           isActive={textareaHasText}
           text={text}
-          onClick={function (): void {
-            throw new Error("Function not implemented.");
-          }}
+          onClick={handleTransliterateButtonClick}
         />
       </div>
       {showDialog}
