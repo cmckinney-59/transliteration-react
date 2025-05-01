@@ -9,9 +9,12 @@ interface TransliteratorProps {
   title: string;
 }
 
+type Dictionary = { [word: string]: string };
+
 export default function Transliterator({ title }: TransliteratorProps) {
   const [text, setText] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [wordsDictionary, setWordsDictionary] = useState<Dictionary>({});
 
   const textareaHasText = text.length > 0;
 
@@ -22,6 +25,22 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
   const handleTransliterateButtonClick = (): void => {
     setIsDialogOpen(true);
+    handleTransliterate();
+  };
+
+  const handleTransliterate = (): void => {
+    // Convert text to dictionary
+    const initialDict: Dictionary = text
+      .trim()
+      .split(/\s+/)
+      .reduce((dict: Dictionary, word: string) => {
+        dict[word] = "";
+        return dict;
+      }, {});
+
+    setWordsDictionary(initialDict);
+
+    console.log(initialDict);
   };
 
   return (
