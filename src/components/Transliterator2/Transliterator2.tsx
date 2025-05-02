@@ -30,7 +30,21 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
   const handleTransliterate = (): void => {
     const initialDict = initializeDictionary(text);
-    setWordsDictionary(initialDict);
+    const updatedDict: Dictionary = {};
+
+    Object.keys(initialDict).forEach((word) => {
+      let transformed = word;
+
+      // Continue replacing one 'c' at a time until none are left
+      while (transformed.includes("c")) {
+        transformed = transformed.replace("c", "k");
+        console.log({ transformed });
+      }
+
+      updatedDict[word] = transformed;
+    });
+
+    setWordsDictionary(updatedDict);
   };
 
   // Helper methods
