@@ -29,18 +29,20 @@ export default function Transliterator({ title }: TransliteratorProps) {
   };
 
   const handleTransliterate = (): void => {
-    // Convert text to dictionary
-    const initialDict: Dictionary = text
+    const initialDict = initializeDictionary(text);
+    setWordsDictionary(initialDict);
+  };
+
+  // Helper methods
+
+  const initializeDictionary = (inputText: string): Dictionary => {
+    return inputText
       .trim()
       .split(/\s+/)
       .reduce((dict: Dictionary, word: string) => {
         dict[word] = "";
         return dict;
       }, {});
-
-    setWordsDictionary(initialDict);
-
-    console.log(initialDict);
   };
 
   return (
