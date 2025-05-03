@@ -34,12 +34,13 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
     Object.keys(initialDict).forEach((word) => {
       let transformed = word;
-      let includesCharacterToQuestion = transformed.includes("c");
+      let includesCharacterToQuestion = /ch|c|j|qu|[A-Z]/.test(transformed);
 
-      // Continue replacing one 'c' at a time until none are left
-      while (includesCharacterToQuestion) {
-        transformed = transformed.replace("c", "k");
-        console.log({ transformed });
+      while (/ch|c|j|qu|[A-Z]/.test(transformed)) {
+        while (/c/.test(transformed)) {
+          transformed = transformed.replace("c", "k");
+          console.log({ transformed });
+        }
       }
 
       updatedDict[word] = transformed;
