@@ -34,11 +34,26 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
     Object.keys(initialDict).forEach((word) => {
       let transformed = word;
-      let includesCharacterToQuestion = /ch|c|j|qu|[A-Z]/.test(transformed);
 
       while (/ch|c|j|qu|[A-Z]/.test(transformed)) {
+        while (/[A-Z]/.test(transformed)) {
+          transformed = transformed.toLowerCase();
+          console.log({ transformed });
+        }
+        while (/ch/.test(transformed)) {
+          transformed = transformed.replace("ch", "tiy");
+          console.log({ transformed });
+        }
         while (/c/.test(transformed)) {
           transformed = transformed.replace("c", "k");
+          console.log({ transformed });
+        }
+        while (/j/.test(transformed)) {
+          transformed = transformed.replace("j", "h");
+          console.log({ transformed });
+        }
+        while (/qu/.test(transformed)) {
+          transformed = transformed.replace("qu", "k");
           console.log({ transformed });
         }
       }
