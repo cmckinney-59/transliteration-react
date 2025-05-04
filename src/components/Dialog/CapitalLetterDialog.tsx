@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function StartReviewDialog() {
+export default function CapitalLetterDialog() {
   return (
     <dialog className="dialog-overlay">
       <div className="dialog-box">

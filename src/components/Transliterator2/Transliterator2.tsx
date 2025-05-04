@@ -78,21 +78,25 @@ export default function Transliterator({ title }: TransliteratorProps) {
         }
 
         while (/ch/.test(transformed)) {
+          setHasCh(true);
           transformed = transformed.replace("ch", "tiy");
           console.log({ transformed });
         }
 
         while (/c/.test(transformed)) {
+          setHasC(true);
           transformed = transformed.replace("c", "k");
           console.log({ transformed });
         }
 
         while (/j/.test(transformed)) {
+          setHasJ(true);
           transformed = transformed.replace("j", "h");
           console.log({ transformed });
         }
 
         while (/qu/.test(transformed)) {
+          setHasQu(true);
           transformed = transformed.replace("qu", "k");
           console.log({ transformed });
         }
