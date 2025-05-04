@@ -1,17 +1,21 @@
 import React from "react";
 
 interface ChDialogProps {
-  word: string | null;
+  word: string;
+  onChSelection: (choice: "k" | "tiy") => void;
 }
 
-export default function ChDialog({ word }: ChDialogProps) {
+export default function ChDialog({ word, onChSelection }: ChDialogProps) {
   return (
-    <dialog className="dialog-overlay">
+    <dialog className="dialog-overlay" open>
       <div className="dialog-box">
         <h3>Word Review</h3>
-        <p>Does the first ch in {word} sound like 'k' or 'tiy'?</p>
-        <button>k</button>
-        <button>tiy</button>
+        <p>
+          Does the first "ch" in <strong>{word}</strong> sound like "k" or
+          "tiy"?
+        </p>
+        <button onClick={() => onChSelection("k")}>k</button>
+        <button onClick={() => onChSelection("tiy")}>tiy</button>
       </div>
     </dialog>
   );
