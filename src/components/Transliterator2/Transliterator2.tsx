@@ -4,6 +4,7 @@ import "./Transliterator2.css";
 import TransliterateButton from "../Buttons/TransliterateButton.tsx";
 import React from "react";
 import StartReviewDialog from "../Dialog/StartReviewDialog.tsx";
+import CapitalLetterDialog from "../Dialog/CapitalLetterDialog.tsx";
 
 interface TransliteratorProps {
   title: string;
@@ -14,19 +15,53 @@ type Dictionary = { [word: string]: string };
 export default function Transliterator({ title }: TransliteratorProps) {
   const [text, setText] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [hasCapitalLetter, setHasCapitalLetter] = useState<boolean>(false);
+  const [hasCh, setHasCh] = useState<boolean>(false);
+  const [hasC, setHasC] = useState<boolean>(false);
+  const [hasJ, setHasJ] = useState<boolean>(false);
+  const [hasQu, setHasQu] = useState<boolean>(false);
   const [wordsDictionary, setWordsDictionary] = useState<Dictionary>({});
 
   const textareaHasText = text.length > 0;
 
-  let showDialog: JSX.Element | null = null;
-  if (isDialogOpen) {
-    showDialog = <StartReviewDialog />;
-  }
+  // Handle Clicks
+
+  const handleStartButtonClick = (): void => {
+    handleTransliterate();
+  };
 
   const handleTransliterateButtonClick = (): void => {
     setIsDialogOpen(true);
-    handleTransliterate();
   };
+
+  // Show Dialogs
+
+  let showDialog: JSX.Element | null = null;
+  if (isDialogOpen) {
+    showDialog = <StartReviewDialog onClickStart={handleStartButtonClick} />;
+  }
+
+  if (hasCapitalLetter) {
+    showDialog = <CapitalLetterDialog />;
+  }
+
+  if (hasCh) {
+    showDialog = <CapitalLetterDialog />;
+  }
+
+  if (hasC) {
+    showDialog = <CapitalLetterDialog />;
+  }
+
+  if (hasJ) {
+    showDialog = <CapitalLetterDialog />;
+  }
+
+  if (hasQu) {
+    showDialog = <CapitalLetterDialog />;
+  }
+
+  // Handle Methods
 
   const handleTransliterate = (): void => {
     const initialDict = initializeDictionary(text);
@@ -37,21 +72,26 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
       while (/ch|c|j|qu|[A-Z]/.test(transformed)) {
         while (/[A-Z]/.test(transformed)) {
+          setHasCapitalLetter(true);
           transformed = transformed.toLowerCase();
           console.log({ transformed });
         }
+
         while (/ch/.test(transformed)) {
           transformed = transformed.replace("ch", "tiy");
           console.log({ transformed });
         }
+
         while (/c/.test(transformed)) {
           transformed = transformed.replace("c", "k");
           console.log({ transformed });
         }
+
         while (/j/.test(transformed)) {
           transformed = transformed.replace("j", "h");
           console.log({ transformed });
         }
+
         while (/qu/.test(transformed)) {
           transformed = transformed.replace("qu", "k");
           console.log({ transformed });
@@ -75,6 +115,8 @@ export default function Transliterator({ title }: TransliteratorProps) {
         return dict;
       }, {});
   };
+
+  // Main HTML Body
 
   return (
     <div>

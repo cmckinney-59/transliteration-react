@@ -211,7 +211,7 @@ export default function Transliterator({ title }: TransliteratorProps) {
           close={handleCloseDialog}
           onProperNounEntered={(answer) => {
             handleProperNounEntered(answer);
-            setQuestionStage("properNoun"); // reset for next word
+            setQuestionStage("properNoun");
           }}
           onSkip={handleSkip}
           onPhoneticAnswerSelected={function (): void {
