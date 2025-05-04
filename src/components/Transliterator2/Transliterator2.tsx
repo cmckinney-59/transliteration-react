@@ -3,8 +3,12 @@ import "./Transliterator2.css";
 
 import TransliterateButton from "../Buttons/TransliterateButton.tsx";
 import React from "react";
-import StartReviewDialog from "../Dialog/StartReviewDialog.tsx";
-import CapitalLetterDialog from "../Dialog/CapitalLetterDialog.tsx";
+import StartReviewDialog from "../Dialog/NewDialogs/StartReviewDialog.tsx";
+import CapitalLetterDialog from "../Dialog/NewDialogs/CapitalLetterDialog.tsx";
+import CDialog from "../Dialog/NewDialogs/CDialog.tsx";
+import ChDialog from "../Dialog/NewDialogs/ChDialog.tsx";
+import JDialog from "../Dialog/NewDialogs/JDialog.tsx";
+import QuDialog from "../Dialog/NewDialogs/QuDialog.tsx";
 
 interface TransliteratorProps {
   title: string;
@@ -26,12 +30,12 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
   // Handle Clicks
 
-  const handleStartButtonClick = (): void => {
-    handleTransliterate();
-  };
-
   const handleTransliterateButtonClick = (): void => {
     setIsDialogOpen(true);
+  };
+
+  const handleStartButtonClick = (): void => {
+    handleTransliterate();
   };
 
   // Show Dialogs
@@ -46,19 +50,19 @@ export default function Transliterator({ title }: TransliteratorProps) {
   }
 
   if (hasCh) {
-    showDialog = <CapitalLetterDialog />;
+    showDialog = <ChDialog />;
   }
 
   if (hasC) {
-    showDialog = <CapitalLetterDialog />;
+    showDialog = <CDialog />;
   }
 
   if (hasJ) {
-    showDialog = <CapitalLetterDialog />;
+    showDialog = <JDialog />;
   }
 
   if (hasQu) {
-    showDialog = <CapitalLetterDialog />;
+    showDialog = <QuDialog />;
   }
 
   // Handle Methods
