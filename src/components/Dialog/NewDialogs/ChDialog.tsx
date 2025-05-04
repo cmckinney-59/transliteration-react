@@ -5,9 +5,9 @@ export default function ChDialog() {
     <dialog className="dialog-overlay">
       <div className="dialog-box">
         <h3>Word Review</h3>
-        <p>This has a ch</p>
+        <p>Does the first ch in word sound like 'k' or 'tiy'?</p>
         <button>k</button>
-        <button>s</button>
+        <button>tiy</button>
       </div>
     </dialog>
   );

@@ -5,7 +5,7 @@ export default function QuDialog() {
     <dialog className="dialog-overlay">
       <div className="dialog-box">
         <h3>Word Review</h3>
-        <p>This has a qu</p>
+        <p>Does the first qu in word sound like 'kuw' or 'k'?</p>
         <button>kuw</button>
         <button>k</button>
       </div>

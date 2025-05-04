@@ -5,7 +5,7 @@ export default function JDialog() {
     <dialog className="dialog-overlay">
       <div className="dialog-box">
         <h3>Word Review</h3>
-        <p>This has a j</p>
+        <p>Does the first j in word sound like 'diy' or 'h'?</p>
         <button>diy</button>
         <button>h</button>
       </div>

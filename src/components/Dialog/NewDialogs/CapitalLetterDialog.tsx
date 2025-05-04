@@ -5,9 +5,10 @@ export default function CapitalLetterDialog() {
     <dialog className="dialog-overlay">
       <div className="dialog-box">
         <h3>Word Review</h3>
-        <p>This has a capital letter</p>
-        <button>Yes</button>
-        <button>No</button>
+        <p>If word is a proper noun please spell it below.</p>
+        <p>If not click next.</p>
+        <button>Input box</button>
+        <button>Next</button>
       </div>
     </dialog>
   );
