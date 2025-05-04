@@ -79,35 +79,35 @@ export default function Transliterator({ title }: TransliteratorProps) {
         while (/[A-Z]/.test(transformed)) {
           setWordForDialog(transformed);
           setHasCapitalLetter(true);
-          transformed = transformed.toLowerCase();
+          // when user makes selection it is changed
           console.log({ transformed });
         }
 
         while (/ch/.test(transformed)) {
           setWordForDialog(transformed);
           setHasCh(true);
-          transformed = transformed.replace("ch", "tiy");
+          // when user makes selection it is changed
           console.log({ transformed });
         }
 
         while (/c/.test(transformed)) {
           setWordForDialog(transformed);
           setHasC(true);
-          transformed = transformed.replace("c", "k");
+          // when user makes selection it is changed
           console.log({ transformed });
         }
 
         while (/j/.test(transformed)) {
           setWordForDialog(transformed);
           setHasJ(true);
-          transformed = transformed.replace("j", "h");
+          // when user makes selection it is changed
           console.log({ transformed });
         }
 
         while (/qu/.test(transformed)) {
           setWordForDialog(transformed);
           setHasQu(true);
-          transformed = transformed.replace("qu", "k");
+          // when user makes selection it is changed
           console.log({ transformed });
         }
       }
