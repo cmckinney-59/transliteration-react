@@ -134,7 +134,7 @@ export default function Transliterator({ title }: TransliteratorProps) {
     if (capitalIndex === null) return;
 
     const replacement = input;
-    const updatedWord = replacement;
+    const updatedWord = replacement.toLowerCase();
     const originalWord = wordKeys[currentWordIndex];
 
     setWordsDictionary((prev) => ({
