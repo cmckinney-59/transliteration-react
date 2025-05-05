@@ -30,7 +30,11 @@ export default function Transliterator({ title }: TransliteratorProps) {
   const [wordKeys, setWordKeys] = useState<string[]>([]);
   const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
   const [currentWord, setCurrentWord] = useState<string>("");
+  const [captialIndex, setCapitalIndex] = useState<number | null>(null);
   const [chIndex, setChIndex] = useState<number | null>(null);
+  const [cIndex, setCIndex] = useState<number | null>(null);
+  const [jIndex, setJIndex] = useState<number | null>(null);
+  const [quIndex, setQuIndex] = useState<number | null>(null);
 
   const textareaHasText = text.length > 0;
 
@@ -75,24 +79,35 @@ export default function Transliterator({ title }: TransliteratorProps) {
     }
 
     if (/c/.test(word)) {
-      setWordForDialog(word);
-      setActiveDialog("c");
-      return;
+      const match = word.indexOf("c");
+      if (match !== -1) {
+        setCIndex(match);
+        setWordForDialog(word);
+        setActiveDialog("c");
+        return;
+      }
     }
 
     if (/j/.test(word)) {
-      setWordForDialog(word);
-      setActiveDialog("j");
-      return;
+      const match = word.indexOf("j");
+      if (match !== -1) {
+        setJIndex(match);
+        setWordForDialog(word);
+        setActiveDialog("j");
+        return;
+      }
     }
 
     if (/qu/.test(word)) {
-      setWordForDialog(word);
-      setActiveDialog("qu");
-      return;
+      const match = word.indexOf("qu");
+      if (match !== -1) {
+        setQuIndex(match);
+        setWordForDialog(word);
+        setActiveDialog("qu");
+        return;
+      }
     }
 
-    // No more transformations, store and move to next
     const original = wordKeys[currentWordIndex];
     setWordsDictionary((prev) => ({
       ...prev,
@@ -103,13 +118,14 @@ export default function Transliterator({ title }: TransliteratorProps) {
     if (nextIndex < wordKeys.length) {
       const nextWord = wordKeys[nextIndex];
       setCurrentWordIndex(nextIndex);
-      setCurrentWord(nextWord); // ✅ This will be picked up by useEffect
+      setCurrentWord(nextWord);
     } else {
       setIsDialogOpen(false);
     }
   };
 
-  // In Transliterator component
+  // Handle Selections
+
   const handleChSelection = (choice: string) => {
     if (chIndex === null) return;
 
@@ -129,18 +145,85 @@ export default function Transliterator({ title }: TransliteratorProps) {
     setChIndex(null);
     setActiveDialog(null);
 
-    if (updatedWord.includes("ch")) {
-      setCurrentWord(updatedWord); // continue processing same original word
-    } else {
-      const nextIndex = currentWordIndex + 1;
-      if (nextIndex < wordKeys.length) {
-        const nextWord = wordKeys[nextIndex];
-        setCurrentWordIndex(nextIndex);
-        setCurrentWord(nextWord);
-      } else {
-        setIsDialogOpen(false);
-      }
+    const updated = updatedWord;
+    setCurrentWord(updated);
+  };
+
+  const handleCSelection = (choice: string) => {
+    if (cIndex === null) return;
+
+    let replacement = "";
+
+    if (choice === "k") {
+      replacement = "k";
+    } else if (choice === "tiy") {
+      replacement = "tiy";
+    } else if (choice === "s") {
+      replacement = "s";
     }
+
+    const before = currentWord.slice(0, cIndex);
+    const after = currentWord.slice(cIndex + 2);
+    const updatedWord = before + replacement + after;
+
+    const originalWord = wordKeys[currentWordIndex];
+
+    setWordsDictionary((prev) => ({
+      ...prev,
+      [originalWord]: updatedWord,
+    }));
+
+    setCIndex(null);
+    setActiveDialog(null);
+
+    const updated = updatedWord;
+    setCurrentWord(updated);
+  };
+
+  const handleJSelection = (choice: string) => {
+    if (jIndex === null) return;
+
+    const replacement = choice === "h" ? "h" : "diy";
+
+    const before = currentWord.slice(0, jIndex);
+    const after = currentWord.slice(jIndex + 2);
+    const updatedWord = before + replacement + after;
+
+    const originalWord = wordKeys[currentWordIndex];
+
+    setWordsDictionary((prev) => ({
+      ...prev,
+      [originalWord]: updatedWord,
+    }));
+
+    setJIndex(null);
+    setActiveDialog(null);
+
+    const updated = updatedWord;
+    setCurrentWord(updated);
+  };
+
+  const handleQuSelection = (choice: string) => {
+    if (quIndex === null) return;
+
+    const replacement = choice === "k" ? "k" : "kuw";
+
+    const before = currentWord.slice(0, quIndex);
+    const after = currentWord.slice(quIndex + 2);
+    const updatedWord = before + replacement + after;
+
+    const originalWord = wordKeys[currentWordIndex];
+
+    setWordsDictionary((prev) => ({
+      ...prev,
+      [originalWord]: updatedWord,
+    }));
+
+    setQuIndex(null);
+    setActiveDialog(null);
+
+    const updated = updatedWord;
+    setCurrentWord(updated);
   };
 
   // Show Dialogs
@@ -163,15 +246,21 @@ export default function Transliterator({ title }: TransliteratorProps) {
       break;
 
     case "c":
-      showDialog = <CDialog word={wordForDialog} />;
+      showDialog = (
+        <CDialog word={wordForDialog} onCSelection={handleCSelection} />
+      );
       break;
 
     case "j":
-      showDialog = <JDialog word={wordForDialog} />;
+      showDialog = (
+        <JDialog word={wordForDialog} onJSelection={handleJSelection} />
+      );
       break;
 
     case "qu":
-      showDialog = <QuDialog word={wordForDialog} />;
+      showDialog = (
+        <QuDialog word={wordForDialog} onQuSelection={handleQuSelection} />
+      );
       break;
   }
 
