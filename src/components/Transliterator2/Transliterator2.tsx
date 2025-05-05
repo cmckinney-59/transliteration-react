@@ -30,7 +30,7 @@ export default function Transliterator({ title }: TransliteratorProps) {
   const [wordKeys, setWordKeys] = useState<string[]>([]);
   const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
   const [currentWord, setCurrentWord] = useState<string>("");
-  const [captialIndex, setCapitalIndex] = useState<number | null>(null);
+  const [capitalIndex, setCapitalIndex] = useState<number | null>(null);
   const [chIndex, setChIndex] = useState<number | null>(null);
   const [cIndex, setCIndex] = useState<number | null>(null);
   const [jIndex, setJIndex] = useState<number | null>(null);
@@ -63,9 +63,13 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
   const processWord = (word: string): void => {
     if (/[A-Z]/.test(word)) {
-      setWordForDialog(word);
-      setActiveDialog("capital");
-      return;
+      const match = word.search(/[A-Z]/);
+      if (match !== -1) {
+        setCapitalIndex(match);
+        setWordForDialog(word);
+        setActiveDialog("capital");
+        return;
+      }
     }
 
     if (/ch/.test(word)) {
@@ -126,6 +130,25 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
   // Handle Selections
 
+  const handleCapitalInput = (input: string) => {
+    if (capitalIndex === null) return;
+
+    const replacement = input;
+    const updatedWord = replacement;
+    const originalWord = wordKeys[currentWordIndex];
+
+    setWordsDictionary((prev) => ({
+      ...prev,
+      [originalWord]: updatedWord,
+    }));
+
+    setCapitalIndex(null);
+    setActiveDialog(null);
+
+    const updated = updatedWord;
+    setCurrentWord(updated);
+  };
+
   const handleChSelection = (choice: string) => {
     if (chIndex === null) return;
 
@@ -163,7 +186,7 @@ export default function Transliterator({ title }: TransliteratorProps) {
     }
 
     const before = currentWord.slice(0, cIndex);
-    const after = currentWord.slice(cIndex + 2);
+    const after = currentWord.slice(cIndex + 1);
     const updatedWord = before + replacement + after;
 
     const originalWord = wordKeys[currentWordIndex];
@@ -186,7 +209,7 @@ export default function Transliterator({ title }: TransliteratorProps) {
     const replacement = choice === "h" ? "h" : "diy";
 
     const before = currentWord.slice(0, jIndex);
-    const after = currentWord.slice(jIndex + 2);
+    const after = currentWord.slice(jIndex + 1);
     const updatedWord = before + replacement + after;
 
     const originalWord = wordKeys[currentWordIndex];
@@ -236,7 +259,12 @@ export default function Transliterator({ title }: TransliteratorProps) {
       break;
 
     case "capital":
-      showDialog = <CapitalLetterDialog word={wordForDialog} />;
+      showDialog = (
+        <CapitalLetterDialog
+          originalText={wordForDialog}
+          onEnter={handleCapitalInput}
+        />
+      );
       break;
 
     case "ch":

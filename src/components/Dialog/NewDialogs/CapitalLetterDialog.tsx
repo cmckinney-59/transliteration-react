@@ -1,23 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface CapitalLetterDialogProps {
-  word: string | null;
+  originalText: string;
+  onEnter: (replacement: string) => void;
 }
 
 export default function CapitalLetterDialog({
-  word,
+  originalText,
+  onEnter,
 }: CapitalLetterDialogProps) {
+  const [inputValue, setInputValue] = useState<string>("");
+
+  const handleEnterClick = () => {
+    onEnter(inputValue);
+  };
+
   return (
     <dialog className="dialog-overlay">
       <div className="dialog-box">
         <h3>Word Review</h3>
         <p>
-          If {word} is a proper noun AND is not spelled the way that it sounds
-          please spell it below.
+          If <strong>{originalText}</strong> is a proper noun AND is not spelled
+          the way that it sounds please spell it below.
         </p>
-        <p>If not click next.</p>
-        <button>Input box</button>
-        <button>Next</button>
+        <p>If not click skip.</p>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+        <button onClick={handleEnterClick}>Enter</button>
+        <button>Skip</button>
       </div>
     </dialog>
   );
