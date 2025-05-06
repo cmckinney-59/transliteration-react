@@ -9,6 +9,7 @@ import CDialog from "../Dialog/NewDialogs/CDialog.tsx";
 import ChDialog from "../Dialog/NewDialogs/ChDialog.tsx";
 import JDialog from "../Dialog/NewDialogs/JDialog.tsx";
 import QuDialog from "../Dialog/NewDialogs/QuDialog.tsx";
+import processBaybayinText from "../Utils/BaybayinTextProcessor.ts";
 
 interface TransliteratorProps {
   title: string;
@@ -112,10 +113,12 @@ export default function Transliterator({ title }: TransliteratorProps) {
       }
     }
 
+    const processed = processBaybayinText(word);
+
     const original = wordKeys[currentWordIndex];
     setWordsDictionary((prev) => ({
       ...prev,
-      [original]: word,
+      [original]: processed,
     }));
 
     const nextIndex = currentWordIndex + 1;

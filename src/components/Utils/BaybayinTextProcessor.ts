@@ -1,4 +1,4 @@
-export default function processBaybayinText(text) {
+export default function processBaybayinText(text: string): string {
   let transliteratedText = text.toLowerCase();
   transliteratedText = transliteratedText.replace(/sh/g, "siy");
   transliteratedText = transliteratedText.replace(/ph/g, "f");
@@ -7,8 +7,8 @@ export default function processBaybayinText(text) {
   transliteratedText = capitalizeSubsequentVowels(transliteratedText);
   transliteratedText = removeDuplicateConsonants(transliteratedText);
   transliteratedText = transliteratedText
-    .replace(/ ng /g, " naN ")
-    .replace(/ mga /g, " maNa ");
+    .replace(/\bng\b/g, "naN")
+    .replace(/\bmga\b/g, "maNa");
   transliteratedText = transliteratedText.replace(/ng/g, "N");
   transliteratedText = addPlusIfConsonant(transliteratedText);
   transliteratedText = removeAAfterConsonant(transliteratedText);
@@ -17,21 +17,21 @@ export default function processBaybayinText(text) {
   return transliteratedText;
 }
 
-function capitalizeSubsequentVowels(text) {
+function capitalizeSubsequentVowels(text: string): string {
   const vowelRegex = /([aeiou])([aeiou]+)/gi;
   return text.replace(
     vowelRegex,
-    (firstVowel, subsequentVowels) =>
+    (_match: string, firstVowel: string, subsequentVowels: string) =>
       firstVowel + subsequentVowels.toUpperCase()
   );
 }
 
-function removeDuplicateConsonants(text) {
+function removeDuplicateConsonants(text: string): string {
   const consonantRegex = /([bcdfghjklmnpqrstvwxyz])\1+/gi;
   return text.replace(consonantRegex, "$1");
 }
 
-function addPlusIfConsonant(text) {
+function addPlusIfConsonant(text: string): string {
   const consonantRegex = /[bcdfghjklmnpqrstvwxyz]/i;
   const punctuationRegex = /[.,!?;-]/;
 
@@ -41,7 +41,7 @@ function addPlusIfConsonant(text) {
 
   return text
     .split(" ")
-    .map((word) => {
+    .map((word: string) => {
       if (!word.trim()) {
         return word;
       }
@@ -68,20 +68,21 @@ function addPlusIfConsonant(text) {
       if (consonantRegex.test(word[word.length - 1])) {
         transformedWord += "+";
       }
+
       return transformedWord;
     })
     .join(" ")
     .trim();
 }
 
-function removeAAfterConsonant(text) {
+function removeAAfterConsonant(text: string): string {
   return text.replace(/([bcdfghjklmnpqrstvwxyz])a/gi, "$1");
 }
 
-function capitalizeVowel(text) {
+function capitalizeVowel(text: string): string {
   return text.replace(
     /([.!?])\s*([aeiou])|(^|\s)([aeiou])/gi,
-    (p1, p2, p3, p4) =>
+    (_match: string, p1: string, p2: string, p3: string, p4: string) =>
       (p1 ? p1 : p3) + (p2 ? p2.toUpperCase() : p4 ? p4.toUpperCase() : "")
   );
 }
