@@ -19,9 +19,13 @@ type Dictionary = { [word: string]: string };
 
 export default function Transliterator({ title }: TransliteratorProps) {
   const [text, setText] = useState<string>("");
+  const [transliteratedText, setTransliteratedText] = useState<string>("");
   const [wordForDialog, setWordForDialog] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [wordsDictionary, setWordsDictionary] = useState<Dictionary>({});
+  const isBaybayin = title === "Baybayin";
+  const isAurebesh = title === "Aurebesh";
+  const isDeseret = title === "Deseret";
 
   type DialogType = "start" | "capital" | "ch" | "c" | "j" | "qu" | null;
   const [activeDialog, setActiveDialog] = useState<DialogType>(null);
@@ -128,6 +132,9 @@ export default function Transliterator({ title }: TransliteratorProps) {
       setCurrentWord(nextWord);
     } else {
       setIsDialogOpen(false);
+      setTransliteratedText(
+        text.replace(/\b\w+\b/g, (word) => wordsDictionary[word] ?? word)
+      );
     }
   };
 
@@ -319,6 +326,21 @@ export default function Transliterator({ title }: TransliteratorProps) {
           value={text}
           onChange={(e) => setText(e.target.value)}
         ></textarea>
+        <p
+          className={`transliteration-output ${
+            textareaHasText
+              ? isBaybayin
+                ? "baybayin-font"
+                : isAurebesh
+                ? "aurebesh-font"
+                : isDeseret
+                ? "deseret-font"
+                : ""
+              : ""
+          }`}
+        >
+          {transliteratedText || "Transliterated text..."}
+        </p>
       </div>
       <div>
         <TransliterateButton
