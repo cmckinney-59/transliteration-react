@@ -1,15 +1,11 @@
 TRANSLITERATOR WEB APP ROADMAP
 
 PHASE 1 : MVP
-2/9
+4/7
 
     CURRENTLY WORKING ON
-    - Question Dialog
-        - Proper nouns
-        - Ch, C, Qu, J
     - Output box
-    - Items must be stored in dictionary
-    - Fix Gauntlet
+    - Gauntlet
     - Save to button
         - Word
         - Excell
@@ -18,6 +14,10 @@ PHASE 1 : MVP
     COMPLETE
     - Input box
     - Transliterate Button
+    - Question Dialog
+        - Proper nouns
+        - Ch, C, Qu, J
+    - Items must be stored in dictionary
 
 PHASE 2 : UI - Color pallet - Header - Footer - Fonts - Buttons - Input boxes
 
