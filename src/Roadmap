@@ -1,11 +1,10 @@
 TRANSLITERATOR WEB APP ROADMAP
 
 PHASE 1 : MVP
-4/7
+5/7
 
     CURRENTLY WORKING ON
     - Output box
-    - Gauntlet
     - Save to button
         - Word
         - Excell
@@ -18,6 +17,7 @@ PHASE 1 : MVP
         - Proper nouns
         - Ch, C, Qu, J
     - Items must be stored in dictionary
+    - Baybayin word processor
 
 PHASE 2 : UI - Color pallet - Header - Footer - Fonts - Buttons - Input boxes
 

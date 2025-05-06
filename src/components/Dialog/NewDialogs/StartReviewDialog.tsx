@@ -11,7 +11,7 @@ export default function StartReviewDialog({
     <dialog className="dialog-overlay">
       <div className="dialog-box">
         <h3>Word Review</h3>
-        <p>You have x amount of words to revied</p>
+        <p>You have x amount of words to review</p>
         <button onClick={onClickStart}>Start</button>
         <button>Close</button>
       </div>
