@@ -159,6 +159,43 @@ export default function Transliterator({ title }: TransliteratorProps) {
     setCurrentWord(updated);
   };
 
+  const handleClose = (): void => {
+    setActiveDialog(null);
+  };
+
+  const handleSkip = (): void => {
+    const originalWord = wordKeys[currentWordIndex];
+    const processed = processBaybayinText(originalWord);
+
+    const nextDictionary = {
+      ...wordsDictionary,
+      [originalWord]: processed,
+    };
+
+    setWordsDictionary(nextDictionary);
+
+    // Clear dialog state
+    setActiveDialog(null);
+    setCapitalIndex(null);
+    setChIndex(null);
+    setCIndex(null);
+    setJIndex(null);
+    setQuIndex(null);
+
+    // Move to the next word or finish
+    const nextIndex = currentWordIndex + 1;
+    if (nextIndex < wordKeys.length) {
+      const nextWord = wordKeys[nextIndex];
+      setCurrentWordIndex(nextIndex);
+      setCurrentWord(nextWord);
+    } else {
+      setIsDialogOpen(false);
+      setTransliteratedText(
+        text.replace(/\b\w+\b/g, (word) => nextDictionary[word] ?? word)
+      );
+    }
+  };
+
   const handleChSelection = (choice: string) => {
     if (chIndex === null) return;
 
@@ -265,39 +302,69 @@ export default function Transliterator({ title }: TransliteratorProps) {
 
   switch (activeDialog) {
     case "start":
-      showDialog = <StartReviewDialog onClickStart={handleStartButtonClick} />;
+      showDialog = (
+        <StartReviewDialog
+          numberOfWordsToReview={wordKeys.length}
+          onClickStart={handleStartButtonClick}
+        />
+      );
       break;
 
     case "capital":
       showDialog = (
         <CapitalLetterDialog
+          currentWordIndex={currentWordIndex}
+          numberOfWordsToReview={wordKeys.length}
           originalText={wordForDialog}
           onEnter={handleCapitalInput}
+          onClose={handleClose}
+          onSkip={handleSkip}
         />
       );
       break;
 
     case "ch":
       showDialog = (
-        <ChDialog word={wordForDialog} onChSelection={handleChSelection} />
+        <ChDialog
+          numberOfWordsToReview={wordKeys.length}
+          word={wordForDialog}
+          onChSelection={handleChSelection}
+          onClose={handleClose}
+        />
       );
       break;
 
     case "c":
       showDialog = (
-        <CDialog word={wordForDialog} onCSelection={handleCSelection} />
+        <CDialog
+          currentWordIndex={currentWordIndex}
+          numberOfWordsToReview={wordKeys.length}
+          word={wordForDialog}
+          onCSelection={handleCSelection}
+          onClose={handleClose}
+        />
       );
       break;
 
     case "j":
       showDialog = (
-        <JDialog word={wordForDialog} onJSelection={handleJSelection} />
+        <JDialog
+          numberOfWordsToReview={wordKeys.length}
+          word={wordForDialog}
+          onJSelection={handleJSelection}
+          onClose={handleClose}
+        />
       );
       break;
 
     case "qu":
       showDialog = (
-        <QuDialog word={wordForDialog} onQuSelection={handleQuSelection} />
+        <QuDialog
+          numberOfWordsToReview={wordKeys.length}
+          word={wordForDialog}
+          onQuSelection={handleQuSelection}
+          onClose={handleClose}
+        />
       );
       break;
   }
