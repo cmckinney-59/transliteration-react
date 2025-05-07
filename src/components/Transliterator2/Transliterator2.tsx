@@ -417,6 +417,10 @@ export default function Transliterator({ title }: TransliteratorProps) {
         />
       </div>
       {showDialog}
+      <p> Save to... </p>
+      <button>Excel</button>
+      <button>Word</button>
+      <button>Text File</button>
       <div className="dictionary-output">
         <h3>Processed Words:</h3>
         <ul>
