@@ -62,8 +62,8 @@ export default function Transliterator({ title }: TransliteratorProps) {
     const keys = Object.keys(initialDict);
     setWordKeys(keys);
     setCurrentWordIndex(0);
-    setCurrentWord(keys[0]); // Start with first word
-    processWord(keys[0]); // Start processing
+    setCurrentWord(keys[0]);
+    processWord(keys[0]);
   };
 
   const processWord = (word: string): void => {
