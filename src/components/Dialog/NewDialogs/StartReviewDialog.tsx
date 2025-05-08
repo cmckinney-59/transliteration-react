@@ -2,11 +2,13 @@ import React from "react";
 
 interface StartReviewDialogProps {
   onClickStart: () => void;
+  onClose: () => void;
   numberOfWordsToReview: number;
 }
 
 export default function StartReviewDialog({
   onClickStart,
+  onClose,
   numberOfWordsToReview,
 }: StartReviewDialogProps) {
   return (
@@ -15,7 +17,7 @@ export default function StartReviewDialog({
         <h3>Word Review</h3>
         <p>You have {numberOfWordsToReview} words to review</p>
         <button onClick={onClickStart}>Start</button>
-        <button>Close</button>
+        <button onClick={onClose}>Close</button>
       </div>
     </dialog>
   );
